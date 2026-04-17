@@ -956,7 +956,7 @@
       <li><a href="#problem">Problem</a></li>
       <li><a href="#how-it-works">How it works</a></li>
       <li><a href="#benchmark">Benchmark</a></li>
-      <li><a href="#features">Features</a></li>
+      <li><a href="#pricing">Pricing</a></li>
       <li><a href="#quickstart">Quickstart</a></li>
       <li><a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
     </ul>
@@ -968,18 +968,18 @@
   <div class="container">
     <div class="hero-eyebrow">Apache 2.0 &nbsp;·&nbsp; Local-first &nbsp;·&nbsp; pip install</div>
     <h1 class="hero-headline">
-      The only agent memory<br>that gets <em>better</em> over time.
+      The memory layer for agents<br>you ship to <em>production</em>.
     </h1>
     <p class="hero-sub">
-      Nightly consolidation. Active forgetting. 9.01/10 on our benchmark.<br>
-      Your agent at month six outperforms month one — not the other way around.
+      Credentials that never decay. Contradictions that resolve toward newer truth.<br>
+      Retrieval quality that doesn't silently rot after month three.
     </p>
 
     <div class="hero-badges">
-      <span class="badge highlight">9.01 / 10 AMB score</span>
-      <span class="badge">Python ≥ 3.10</span>
-      <span class="badge">ChromaDB</span>
-      <span class="badge">Ollama</span>
+      <span class="badge highlight">Credentials never decay</span>
+      <span class="badge">Nightly consolidation</span>
+      <span class="badge">Replay any recall</span>
+      <span class="badge">LangChain + LlamaIndex</span>
       <span class="badge">Local-first</span>
       <span class="badge">Apache 2.0</span>
     </div>
@@ -1002,9 +1002,51 @@
     <div class="hero-chart reveal">
       <img src="images/performance-over-time.png" alt="Memory quality over time: agent-memory-core trends up while all other systems degrade" loading="eager">
       <div class="hero-chart-caption">
-        Every other system trends down. agent-memory-core trends up. Month 6 &gt; Month 1.
+        Projected decay curves. Longitudinal benchmark (AMB v2, 90-day simulated) launches May 2026 — <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>.
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── Why Not Context Window ──────────────────────────── -->
+<section id="why-not-context">
+  <div class="container">
+    <div class="section-label">The common alternative</div>
+    <h2 class="section-title">"Why not just use a bigger context window?"</h2>
+    <p class="section-sub">
+      It's the first reaction we hear. Claude Opus gives you 200K tokens. GPT-5 goes to 400K. Why bother with retrieval, consolidation, and salience? Three reasons: cost, latency, quality. Each is a factor-of-10 problem at production scale.
+    </p>
+
+    <div class="problem-grid reveal-stagger" style="margin-top:48px;">
+      <div class="problem-card">
+        <div class="problem-card-system">💸 Cost at scale</div>
+        <div class="problem-card-title">$9M vs. $55K per month</div>
+        <div class="problem-card-body">
+          500 users × 200 turns/day × 10K-chunk memory in Claude Opus context = <strong>$9M/month</strong> in inference.<br>
+          Same workload with retrieval: <strong>$55K/month</strong>. That's 160x cheaper, same quality, more privacy.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-card-system">🐌 Latency wall</div>
+        <div class="problem-card-title">TTFT of 8s vs. 1s</div>
+        <div class="problem-card-body">
+          Time-to-first-token scales with prompt length. A 150K-token context takes <strong>8+ seconds</strong> before your agent says the first word. Retrieval with a focused 1K prompt: <strong>under 1 second</strong>. Users feel the difference.
+        </div>
+      </div>
+
+      <div class="problem-card">
+        <div class="problem-card-system">🧠 Attention rot</div>
+        <div class="problem-card-title">44% vs. 78% on multi-hop</div>
+        <div class="problem-card-body">
+          Language model attention degrades past ~30K tokens. Multi-hop reasoning accuracy drops from <strong>78% (retrieval)</strong> to <strong>44% (dump-everything)</strong>. The bigger window doesn't just cost more — it's less accurate on the queries that matter.
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-top:48px;font-size:16px;color:var(--text-muted);text-align:center;">
+      Full breakdown with cost math, latency benchmarks, and attention research: <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/docs/WHY_NOT_CONTEXT_WINDOW.md" target="_blank" rel="noopener">docs/WHY_NOT_CONTEXT_WINDOW.md</a>
+    </p>
   </div>
 </section>
 
@@ -1121,10 +1163,10 @@
 
     <div class="score-hero reveal">
       <div>
-        <div class="score-number">9.01</div>
-        <div class="score-oracle">95.2% of oracle ceiling &nbsp;·&nbsp; Oracle: 9.46/10 (full context)</div>
+        <div class="score-number">69%</div>
+        <div class="score-oracle">Answer accuracy on adversarial queries &nbsp;·&nbsp; Naive retrieval: 63% &nbsp;·&nbsp; LangChain window: 65%</div>
       </div>
-      <div class="score-label">/ 10 composite<br>AMB score</div>
+      <div class="score-label">answer accuracy<br>where it matters</div>
     </div>
 
     <div class="bench-chart reveal">
@@ -1186,8 +1228,22 @@
     </div>
 
     <p class="bench-note">
-      Benchmark methodology: <a href="https://github.com/atw4757-byte/agent-memory-core/tree/main/benchmark" target="_blank" rel="noopener">benchmark/README.md</a>. Built in one week, eval-driven from day one. Every improvement was measured before and after against the same 200-query set.
+      Methodology: <a href="https://github.com/atw4757-byte/agent-memory-core/tree/main/benchmark" target="_blank" rel="noopener">benchmark/README.md</a>. Composite scores cluster tight (~9) because simple lookups are easy for any functional system. <strong>The differentiation shows up in Answer Accuracy</strong> — where real production failures happen.
     </p>
+
+    <div style="margin-top:48px;padding:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
+      <div style="font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">
+        Public Leaderboard
+      </div>
+      <h3 style="font-size:24px;font-weight:700;margin-bottom:12px;">AMB is becoming an institution.</h3>
+      <p style="color:var(--text-muted);margin-bottom:16px;">
+        We're inviting every memory system — Mem0, MemGPT, Letta, Zep, pgvector pipelines — to submit scores. One harness, one hardware spec, one published scenario set. The leaderboard launches May 2026 at <strong>amb.divergencerouter.com</strong>.
+      </p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;">
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener" class="btn btn-secondary">Submission spec</a>
+        <a href="mailto:benchmark@divergencerouter.com" class="btn btn-secondary">Submit your system</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1427,6 +1483,110 @@
   </div>
 </section>
 
+<!-- ─── Pricing ───────────────────────────────────────── -->
+<section id="pricing">
+  <div class="container">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-title">Free forever. Paid tiers for teams shipping to production.</h2>
+    <p class="section-sub">
+      The OSS library is the product and always will be. Paid tiers add observability, team features, and hosted services for engineering teams who need to see what's happening and prove it to auditors.
+    </p>
+
+    <div class="data-table-wrap reveal" style="margin-top:48px;overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th><strong>Free OSS</strong></th>
+            <th class="col-highlight"><strong>Solo Dev</strong><br><span style="font-weight:400;color:var(--text-muted);font-size:13px;">$19/mo</span></th>
+            <th class="col-highlight"><strong>Team</strong><br><span style="font-weight:400;color:var(--text-muted);font-size:13px;">$99/mo</span></th>
+            <th><strong>Business</strong><br><span style="font-weight:400;color:var(--text-muted);font-size:13px;">$499/mo</span></th>
+            <th><strong>Enterprise</strong><br><span style="font-weight:400;color:var(--text-muted);font-size:13px;">from $3K/mo</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Full OSS library</td>
+            <td class="yes">✓</td>
+            <td class="yes col-highlight">✓</td>
+            <td class="yes col-highlight">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Memory health dashboard</td>
+            <td class="no">—</td>
+            <td class="yes col-highlight">✓</td>
+            <td class="yes col-highlight">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Hosted eval runs</td>
+            <td class="no">—</td>
+            <td class="yes col-highlight">5/mo</td>
+            <td class="yes col-highlight">50/mo</td>
+            <td class="yes">500/mo</td>
+            <td class="yes">Unlimited</td>
+          </tr>
+          <tr>
+            <td>Replay debugger</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes col-highlight">✓</td>
+            <td class="yes">✓</td>
+            <td class="yes">✓</td>
+          </tr>
+          <tr>
+            <td>Shared workspaces</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes col-highlight">3 seats</td>
+            <td class="yes">10 seats</td>
+            <td class="yes">Unlimited</td>
+          </tr>
+          <tr>
+            <td>Hosted consolidation</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">50 jobs/mo</td>
+            <td class="yes">Unlimited</td>
+          </tr>
+          <tr>
+            <td>SOC2 / SLA / retention</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">Type I / 99.5%</td>
+            <td class="yes">Type II / 99.95%</td>
+          </tr>
+          <tr>
+            <td>VPC deploy / SSO / DPA</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="no">—</td>
+            <td class="yes">✓</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="margin-top:48px;padding:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);text-align:center;">
+      <h3 style="font-size:22px;font-weight:700;margin-bottom:12px;">Paid tiers launch Q3 2026.</h3>
+      <p style="color:var(--text-muted);margin-bottom:20px;">
+        We're gating paid launch on OSS adoption milestones — 1K GitHub stars, 50 production users, 10 external leaderboard submissions. Join the waitlist to be invited to the beta.
+      </p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/PRICING.md" target="_blank" rel="noopener" class="btn btn-secondary">Full pricing detail</a>
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/ENTERPRISE.md" target="_blank" rel="noopener" class="btn btn-secondary">Enterprise / private deploy</a>
+        <a href="mailto:hello@divergencerouter.com?subject=agent-memory-core%20beta%20waitlist" class="btn btn-primary">Join the waitlist</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── Comparison ────────────────────────────────────── -->
 <section id="compare">
   <div class="container">
@@ -1555,6 +1715,9 @@
           GitHub
         </a>
         <a href="https://github.com/atw4757-byte/agent-memory-core/tree/main/benchmark" target="_blank" rel="noopener">Benchmark</a>
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener">AMB Leaderboard</a>
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/PRICING.md" target="_blank" rel="noopener">Pricing</a>
+        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/ROADMAP.md" target="_blank" rel="noopener">Roadmap</a>
         <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/LICENSE" target="_blank" rel="noopener">License</a>
         <span class="footer-license">Apache 2.0</span>
       </div>
