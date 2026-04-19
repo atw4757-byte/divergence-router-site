@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Changelog — pipeline expansion, model onboarding, schema evolution, and corpus milestones for divergencerouter.com.">
+  <title>Changelog — Divergence Router</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg-secondary: #161b22; --bg-card: #1c2128;
+      --border: #30363d; --border-subtle: #21262d;
+      --text: #e6edf3; --text-muted: #8b949e; --text-subtle: #6e7681;
+      --blue: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149; --purple: #bc8cff;
+      --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--sans);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13,17,23,.85); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--mono); font-size: 13px;
+    }
+    .nav-brand { color: var(--text); font-weight: 600; }
+    .nav-brand .accent { color: var(--blue); }
+    .nav-links a { color: var(--text-muted); margin-left: 20px; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    main { max-width: 820px; margin: 0 auto; padding: 64px 24px 96px; }
+
+    .header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border-subtle); }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-subtle); margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 40px; font-weight: 800; letter-spacing: -.02em;
+      line-height: 1.15; margin-bottom: 12px;
+    }
+    .lede { color: var(--text-muted); font-size: 17px; max-width: 640px; }
+
+    .entry { margin-top: 40px; padding-left: 24px; border-left: 2px solid var(--border-subtle); position: relative; }
+    .entry::before {
+      content: ""; position: absolute; left: -7px; top: 8px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--bg); border: 2px solid var(--blue);
+    }
+    .entry.live::before { background: var(--green); border-color: var(--green); box-shadow: 0 0 0 4px rgba(63,185,80,.15); }
+    .entry.planned::before { background: var(--bg); border-color: var(--text-subtle); }
+    .entry.milestone::before { background: var(--purple); border-color: var(--purple); }
+
+    .entry-date {
+      font-family: var(--mono); font-size: 12px;
+      color: var(--text-subtle); letter-spacing: .06em; margin-bottom: 4px;
+    }
+    .entry-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .tag {
+      display: inline-block; font-family: var(--mono); font-size: 11px;
+      padding: 2px 8px; border-radius: 4px; margin-left: 8px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      color: var(--text-muted); letter-spacing: .04em; text-transform: uppercase;
+      vertical-align: middle;
+    }
+    .tag.live { color: var(--green); border-color: rgba(63,185,80,.3); background: rgba(63,185,80,.08); }
+    .tag.planned { color: var(--text-muted); border-color: var(--border-subtle); }
+    .tag.milestone { color: var(--purple); border-color: rgba(188,140,255,.3); background: rgba(188,140,255,.08); }
+
+    .entry p { color: var(--text); margin-bottom: 12px; }
+    .entry p.muted { color: var(--text-muted); font-size: 15px; }
+    .entry ul { padding-left: 22px; margin: 12px 0; color: var(--text-muted); font-size: 15px; }
+    .entry ul li { margin-bottom: 6px; }
+
+    code, .mono {
+      font-family: var(--mono); font-size: 13px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      padding: 2px 6px; border-radius: 4px; color: var(--text);
+    }
+
+    .section-head {
+      font-size: 13px; font-family: var(--mono); text-transform: uppercase;
+      letter-spacing: .12em; color: var(--text-subtle);
+      margin-top: 56px; margin-bottom: 8px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border-subtle);
+    }
+
+    footer {
+      margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--border-subtle);
+      font-family: var(--mono); font-size: 12px; color: var(--text-subtle);
+    }
+
+    @media (max-width: 640px) {
+      main { padding: 40px 20px 72px; }
+      h1 { font-size: 30px; }
+      .entry { padding-left: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">divergence<span class="accent">-router</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/amc/">Memory Core</a>
+      <a href="/analysis/">Analysis</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <div class="header">
+    <div class="eyebrow">Changelog</div>
+    <h1>Pipeline expansion &amp; corpus evolution</h1>
+    <p class="lede">
+      What's live, what's landing next, and what the pipeline did between snapshots. Updated whenever new models, new schema, or new corpus milestones ship.
+    </p>
+  </div>
+
+  <div class="section-head">In flight</div>
+
+  <div class="entry live">
+    <div class="entry-date">2026-04-19</div>
+    <div class="entry-title">AMB v2.3 time-series chart published<span class="tag live">live</span></div>
+    <p>Agent-memory-core benchmark plots top-1 accuracy across a simulated 90-day horizon with two confuser waves. LangChain 32k dump split into two tracks to show "answer exists in context" vs "top-ranked chunk the LLM attends to" — the v2.3 thesis made visible.</p>
+    <ul>
+      <li>3-seed grid at scale L — 250 queries × 2,300 confusers</li>
+      <li>agent-memory-core (tuned) holds at 99.2% through day 90; retrieval-only drops to 49.2% after second confuser wave</li>
+    </ul>
+  </div>
+
+  <div class="entry live">
+    <div class="entry-date">2026-04-19</div>
+    <div class="entry-title">Live stats hydration <span class="tag live">live</span></div>
+    <p>Hero numbers and roadmap counters now pull from <code>/stats.json</code> on page load. Published snapshot refreshes from the producing nodes; the site can narrate real throughput instead of frozen text.</p>
+  </div>
+
+  <div class="entry live">
+    <div class="entry-date">2026-04-19</div>
+    <div class="entry-title">Public analysis page shipped <span class="tag live">live</span></div>
+    <p>Full corpus breakdown at <a href="/analysis/">/analysis/</a>: 8-category divergence table, four-node throughput, top-5 high-divergence prompts, batch continuity, and schema-limits disclosure. Regenerated when new corpus snapshots land.</p>
+  </div>
+
+  <div class="section-head">Planned · next 30 days</div>
+
+  <div class="entry planned">
+    <div class="entry-date">Target: May 2026</div>
+    <div class="entry-title">Schema v2.2 — pair-level disagreement tables <span class="tag planned">planned</span></div>
+    <p>Current v2.1 stores prompt-level divergence; v2.2 will add explicit pair-level disagreement matrices per prompt, so routers can query "which two models disagree on code-reasoning prompts longer than 512 tokens" directly. Included in Commercial tier at no extra cost.</p>
+  </div>
+
+  <div class="entry planned">
+    <div class="entry-date">Target: May 2026</div>
+    <div class="entry-title">Router API beta <span class="tag planned">planned</span></div>
+    <p>REST endpoint that takes a prompt, returns a recommended open-weights model (and optional fallback) based on live divergence data. Beta opens to Commercial-tier customers first.</p>
+  </div>
+
+  <div class="entry planned">
+    <div class="entry-date">Target: rolling</div>
+    <div class="entry-title">Model family onboarding <span class="tag planned">planned</span></div>
+    <p class="muted">Each notable open-weights release enters the pipeline within a week of its drop. 90-day onboarding queue:</p>
+    <ul>
+      <li>Qwen 3 (7B / 14B / 32B) · DeepSeek V3 · Llama 4 · GLM 4.6</li>
+      <li>Granite 3 · Phi-4 · Command R+ · Nous Hermes 3</li>
+      <li>OLMo 2 · Tülu 3 · Yi 1.5 + Coder · StarCoder 2 · Mistral Large-Instruct</li>
+    </ul>
+    <p class="muted">Today's 13-model fan-out is a first-corpus design choice, not a platform limit. Target: 50+ model variants by Q1 2027.</p>
+  </div>
+
+  <div class="section-head">Shipped</div>
+
+  <div class="entry milestone">
+    <div class="entry-date">2026-04-18</div>
+    <div class="entry-title">Divergence corpus crosses 80k prompts <span class="tag milestone">milestone</span></div>
+    <p>Combined four-node output crossed 80,000 prompts with roughly 332k total model inferences across 8 reasoning categories. 29% of prompts scored as high-divergence (pairwise divergence ≥ 0.5) — the empirical ceiling above which routing pays off.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2026-04-17</div>
+    <div class="entry-title">Node D (experiment + repeatability) online</div>
+    <p>Fourth hardware node joined the fleet, dedicated to repeatability runs and one-off experiments without blocking the primary pipelines. Small slice of throughput by volume; primary role is statistical tightening, not corpus scale.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2026-04-10</div>
+    <div class="entry-title">Agent-memory-core v0.2.1 — AMB v2 preview</div>
+    <p>Tagged preview release of the memory benchmark with the consolidation-aware adapter. Preregistered v2.1 harness: 6-checkpoint day grid, contradiction-injection scenarios, confuser wave at day 14. Public repo at <a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener">atw4757-byte/agent-memory-core</a>.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2026-04-05</div>
+    <div class="entry-title">Hardware node provenance anonymized</div>
+    <p>External-facing data surfaces switched to Node A / B / C / D labels with <code>batch-NNNN</code> identifiers. Internal hostnames removed from the site and public repo. Schema fields preserved; only display labels changed.</p>
+  </div>
+
+  <div class="entry">
+    <div class="entry-date">2026-04-01</div>
+    <div class="entry-title">Schema v2.1 — prompt-level divergence baseline</div>
+    <p>Stabilized JSONL schema: per-prompt metadata, per-model inference output, pairwise divergence scores, category tags. Ships as the Evaluation-tier snapshot today and as the ongoing feed for Commercial-tier subscribers.</p>
+  </div>
+
+  <div class="entry milestone">
+    <div class="entry-date">2026-03-28</div>
+    <div class="entry-title">Three-node pipeline operational <span class="tag milestone">milestone</span></div>
+    <p>Nodes A, B, and C running continuous fan-out against 7-model rotations. First full daily analysis covered 60k+ prompts. Marked the transition from spike collection to continuous corpus production.</p>
+  </div>
+
+  <footer>
+    Questions or wrong dates? Open an issue at
+    <a href="https://github.com/atw4757-byte/divergence-router" target="_blank" rel="noopener">github.com/atw4757-byte/divergence-router</a>.
+  </footer>
+
+</main>
+
+</body>
+</html>

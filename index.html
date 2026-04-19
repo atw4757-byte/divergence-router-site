@@ -215,7 +215,10 @@
     @media (max-width: 768px) {
       section { padding: 64px 0; }
       #hero { padding: 80px 0 64px; }
-      .nav-links { display: none; }
+      .nav-links { gap: 10px; }
+      .nav-links li:not(.nav-mobile-keep) { display: none; }
+      .nav-links .nav-cta { padding: 6px 12px; font-size: 12px; }
+      .nav-links .nav-amc { font-size: 13px; color: var(--text) !important; font-weight: 600; }
       .pipeline { grid-template-columns: 1fr; }
       .pipeline-step { border-right: none; border-bottom: 1px solid var(--border); }
       .pipeline-step:last-child { border-bottom: none; }
@@ -243,8 +246,9 @@
       <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#findings">Findings</a></li>
       <li><a href="#access">Pricing</a></li>
-      <li><a href="/amc/">Memory Core</a></li>
-      <li><a href="#access" class="nav-cta">Get access →</a></li>
+      <li><a href="/changelog/">Changelog</a></li>
+      <li class="nav-mobile-keep"><a href="/amc/" class="nav-amc">Memory Core</a></li>
+      <li class="nav-mobile-keep"><a href="#access" class="nav-cta">Get access →</a></li>
     </ul>
   </div>
 </nav>
@@ -270,6 +274,7 @@
 
     <div class="cta-row">
       <a href="#access" class="btn btn-primary">Get dataset access</a>
+      <a href="/amc/" class="btn btn-secondary">Memory Core benchmark →</a>
       <a href="#findings" class="btn btn-secondary">See findings</a>
     </div>
   </div>
@@ -433,7 +438,7 @@
     </div>
 
     <p style="margin-top:32px; font-size:13px; color:var(--text-subtle);">
-      Today's 13-model fan-out cap was a first-corpus design choice, not a platform limit. Hardware expands with customer demand — each new notable open-weights release enters the pipeline within a week of its drop. Expansion pace is tracked publicly in <a href="https://github.com/atw4757-byte/divergence-router/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a>.
+      Today's 13-model fan-out cap was a first-corpus design choice, not a platform limit. Hardware expands with customer demand — each new notable open-weights release enters the pipeline within a week of its drop. Expansion pace is tracked publicly in the <a href="/changelog/">changelog</a>.
     </p>
   </div>
 </section>
