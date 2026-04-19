@@ -269,21 +269,21 @@
       Ours <em>compounds</em>.
     </h1>
     <p class="lede">
-      The Agentic Memory Benchmark v2.3 places a contradictory fact, waits ninety simulated days, then asks which system still knows the truth. We ran it across four corpus scales and three seeds. The result is the chart below — and it does not soften with scale.
+      The Agentic Memory Benchmark v2.3 plants a contradictory fact on day zero, plants a second wave on day fourteen, then watches every memory system across a simulated ninety-day horizon. Below: what happens to each.
     </p>
 
     <div class="hero-numbers">
       <div class="hero-num">
         <div class="hero-num-val accent">99.2%</div>
-        <div class="hero-num-label">top-1 accuracy @ 250-query scale</div>
+        <div class="hero-num-label">top-1 at day 90 &mdash; ours, with consolidation</div>
+      </div>
+      <div class="hero-num">
+        <div class="hero-num-val">49.2%</div>
+        <div class="hero-num-label">top-1 at day 90 &mdash; same retriever, no consolidation</div>
       </div>
       <div class="hero-num">
         <div class="hero-num-val">0.0%</div>
-        <div class="hero-num-label">every non-retriever baseline</div>
-      </div>
-      <div class="hero-num">
-        <div class="hero-num-val">3&thinsp;seeds</div>
-        <div class="hero-num-label">std 0.000 across every cell</div>
+        <div class="hero-num-label">every non-retriever baseline, never recovers</div>
       </div>
     </div>
 
@@ -293,9 +293,9 @@
     </div>
 
     <figure class="hero-chart reveal">
-      <img src="/images/amb-v23-degradation.png" alt="AMB v2.3 — Top-1 accuracy across corpus scales (4 → 250 queries). agent-memory-core tuned holds 99.2%; every non-retriever baseline scores 0.0%.">
+      <img src="/images/amb-v23-degradation.png" alt="AMB v2.3 — Top-1 accuracy across a simulated 90-day horizon. agent-memory-core tuned holds at 99.2%; retrieval-only collapses to 49.2% when the second wave of contradictions is planted on day 14; every non-retriever baseline never recovers from zero.">
       <figcaption class="hero-chart-caption">
-        Top-1 accuracy vs corpus scale · AMB v2.3 · 3-seed mean (42, 43, 44)
+        Top-1 accuracy over simulated time · AMB v2.3 · 3-seed mean (42, 43, 44) at scale L (250 queries × 2,300 confusers)
       </figcaption>
     </figure>
   </div>
@@ -313,7 +313,7 @@
         </p>
       </div>
       <blockquote class="bench-claim">
-        Across corpus scales from 4 to 250 queries, embedding-based memory with supersede-aware consolidation holds top-1 accuracy at <strong>≥0.99</strong>. Every non-retriever baseline scores <strong>0.000</strong>. Word-overlap retrieval scores <strong>0.28 quality</strong>. Context-dump, even at 32k tokens, starts losing recall at large scale.
+        By day 14, the second wave of contradictions has landed. Retrieval-only memory drops from <strong>70%</strong> top-1 to <strong>49%</strong> and never recovers. Supersede-aware consolidation holds at <strong>99.2%</strong> and stays there through day 90. Every context-dump and word-overlap baseline sits at <strong>0.0%</strong> from day 0 to day 90 — they never resolve a single contradiction.
       </blockquote>
     </div>
 
