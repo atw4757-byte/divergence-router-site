@@ -1239,14 +1239,47 @@
       <div style="font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:12px;">
         Public Leaderboard
       </div>
-      <h3 style="font-size:24px;font-weight:700;margin-bottom:12px;">AMB is becoming an institution.</h3>
-      <p style="color:var(--text-muted);margin-bottom:16px;">
-        We're inviting every memory system — Mem0, MemGPT, Letta, Zep, pgvector pipelines — to submit scores. One harness, one hardware spec, one published scenario set. The leaderboard launches May 2026 at <strong>amb.divergencerouter.com</strong>.
+      <h3 style="font-size:24px;font-weight:700;margin-bottom:12px;">Submit your memory system to AMB.</h3>
+      <p style="color:var(--text-muted);margin-bottom:20px;">
+        Mem0, MemGPT, Letta, Zep, pgvector pipelines — anyone. One harness, one hardware spec, one published scenario set. Fill in the form and we'll reply within 48 hours with the eval harness package and run instructions.
       </p>
-      <div style="display:flex;gap:12px;flex-wrap:wrap;">
-        <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener" class="btn btn-secondary">Submission spec</a>
-        <a href="mailto:benchmark@divergencerouter.com" class="btn btn-secondary">Submit your system</a>
-      </div>
+
+      <form name="amb-submission" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/amc/thanks.html" style="display:grid;gap:12px;">
+        <input type="hidden" name="form-name" value="amb-submission">
+        <p style="display:none;"><label>Do not fill: <input name="bot-field"></label></p>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div>
+            <label for="amb-name" style="display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:6px;">Your name</label>
+            <input id="amb-name" type="text" name="name" required placeholder="Ada Lovelace" style="width:100%;padding:10px 12px;background:#010409;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:14px;">
+          </div>
+          <div>
+            <label for="amb-email" style="display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:6px;">Email</label>
+            <input id="amb-email" type="email" name="email" required placeholder="ada@example.com" style="width:100%;padding:10px 12px;background:#010409;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:14px;">
+          </div>
+        </div>
+
+        <div>
+          <label for="amb-system" style="display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:6px;">System name</label>
+          <input id="amb-system" type="text" name="system" required placeholder="e.g. MemGPT, Zep, my-custom-retriever" style="width:100%;padding:10px 12px;background:#010409;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:14px;">
+        </div>
+
+        <div>
+          <label for="amb-url" style="display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:6px;">Repo / project URL <span style="color:var(--text-subtle);font-weight:400;">(optional)</span></label>
+          <input id="amb-url" type="url" name="url" placeholder="https://github.com/…" style="width:100%;padding:10px 12px;background:#010409;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:14px;">
+        </div>
+
+        <div>
+          <label for="amb-notes" style="display:block;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-subtle);margin-bottom:6px;">Notes <span style="color:var(--text-subtle);font-weight:400;">(optional — hardware, adapter mode, anything unusual)</span></label>
+          <textarea id="amb-notes" name="notes" rows="3" placeholder="I plan to run the 250-query scenario on …" style="width:100%;padding:10px 12px;background:#010409;border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:var(--sans);font-size:14px;resize:vertical;"></textarea>
+        </div>
+
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:8px;">
+          <button type="submit" class="btn btn-primary">Submit to AMB</button>
+          <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener" class="btn btn-secondary">Submission spec</a>
+          <span style="font-size:12px;color:var(--text-subtle);">We'll reply in 48 hours.</span>
+        </div>
+      </form>
     </div>
   </div>
 </section>
