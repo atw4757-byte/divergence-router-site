@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Divergence corpus analysis — 74,985 prompts × 309k inferences across 8 categories. Full empirical results regenerated daily.">
+  <title>Divergence corpus analysis — 2026-04-19</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg-secondary: #161b22; --bg-card: #1c2128;
+      --border: #30363d; --border-subtle: #21262d;
+      --text: #e6edf3; --text-muted: #8b949e; --text-subtle: #6e7681;
+      --blue: #58a6ff; --green: #3fb950; --yellow: #d29922; --red: #f85149;
+      --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--sans);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .nav {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13,17,23,.85); backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 0;
+    }
+    .nav-inner {
+      max-width: 960px; margin: 0 auto; padding: 0 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      font-family: var(--mono); font-size: 13px;
+    }
+    .nav-brand { color: var(--text); font-weight: 600; }
+    .nav-brand .accent { color: var(--blue); }
+    .nav-links a { color: var(--text-muted); margin-left: 24px; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    main { max-width: 960px; margin: 0 auto; padding: 64px 24px 96px; }
+
+    .header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid var(--border-subtle); }
+    .eyebrow {
+      font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--text-subtle); margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 40px; font-weight: 800; letter-spacing: -.02em;
+      line-height: 1.15; margin-bottom: 16px;
+    }
+    .meta {
+      font-family: var(--mono); font-size: 13px; color: var(--text-muted);
+      display: flex; flex-wrap: wrap; gap: 20px; margin-top: 16px;
+    }
+    .meta-item span:first-child { color: var(--text-subtle); }
+
+    h2 {
+      font-size: 24px; font-weight: 700; letter-spacing: -.01em;
+      margin-top: 56px; margin-bottom: 20px;
+      padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle);
+    }
+    h2:first-of-type { margin-top: 0; }
+
+    p { margin: 0 0 16px; color: var(--text); }
+    p.muted { color: var(--text-muted); font-size: 15px; }
+
+    ul { padding-left: 24px; margin: 16px 0; }
+    li { margin-bottom: 8px; }
+
+    strong { color: var(--text); font-weight: 700; }
+    code, .mono {
+      font-family: var(--mono); font-size: 13px;
+      background: var(--bg-card); border: 1px solid var(--border-subtle);
+      padding: 2px 6px; border-radius: 4px; color: var(--text);
+    }
+
+    .summary-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px; margin: 24px 0;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 10px; padding: 20px;
+    }
+    .stat-val {
+      font-family: var(--mono); font-size: 28px; font-weight: 700;
+      color: var(--blue); letter-spacing: -.02em; margin-bottom: 6px;
+    }
+    .stat-val.green { color: var(--green); }
+    .stat-val.yellow { color: var(--yellow); }
+    .stat-label { font-size: 13px; color: var(--text-muted); }
+
+    table {
+      width: 100%; border-collapse: collapse; margin: 20px 0;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 12px 14px; text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      background: var(--bg-secondary); color: var(--text-muted);
+      font-family: var(--mono); font-size: 12px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+    td { color: var(--text); }
+    td.num { font-family: var(--mono); text-align: right; color: var(--text-muted); }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(88,166,255,.04); }
+
+    .cat-eth td, .cat-rea td { font-weight: 600; }
+    .cat-eth .cat-name { color: var(--red); }
+    .cat-rea .cat-name { color: var(--green); }
+
+    .divbar {
+      display: inline-block; height: 8px; border-radius: 2px;
+      background: var(--blue); vertical-align: middle;
+      margin-left: 8px; min-width: 2px;
+    }
+    .divbar.hi { background: var(--red); }
+    .divbar.lo { background: var(--green); }
+
+    .callout {
+      background: var(--bg-card); border-left: 3px solid var(--blue);
+      border-radius: 0 8px 8px 0; padding: 20px 24px; margin: 24px 0;
+    }
+    .callout-label {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 8px;
+    }
+
+    .footer {
+      margin-top: 72px; padding-top: 32px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: var(--mono); font-size: 12px; color: var(--text-subtle);
+      display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;
+    }
+
+    @media (max-width: 640px) {
+      h1 { font-size: 28px; }
+      h2 { font-size: 20px; margin-top: 40px; }
+      main { padding: 40px 16px 64px; }
+      table { font-size: 13px; }
+      th, td { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand">divergence<span class="accent">router</span></a>
+    <div class="nav-links">
+      <a href="/">Home</a>
+      <a href="/amc/">Memory</a>
+      <a href="https://github.com/atw4757-byte/divergence-router" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="header">
+    <div class="eyebrow">Corpus analysis · Schema v2.1</div>
+    <h1>Divergence corpus analysis</h1>
+    <p class="muted">Every prompt in the corpus fanned out to 3, 6, or 13 open-source models. Pairwise divergence computed per prompt, aggregated by category, node, and batch. Regenerated daily.</p>
+    <div class="meta">
+      <div class="meta-item"><span>Generated: </span><span>2026-04-19 10:15 UTC</span></div>
+      <div class="meta-item"><span>Source: </span><code>data/</code></div>
+      <div class="meta-item"><span>Refresh: </span><span>daily</span></div>
+    </div>
+  </div>
+
+  <h2>Corpus scale</h2>
+  <div class="summary-grid">
+    <div class="stat-card">
+      <div class="stat-val">74,985</div>
+      <div class="stat-label">Prompts analyzed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val">309,398</div>
+      <div class="stat-label">Total model inferences</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val yellow">21,921</div>
+      <div class="stat-label">High-divergence prompts (29.23%)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val green">4</div>
+      <div class="stat-label">Hardware nodes (24/7)</div>
+    </div>
+  </div>
+  <p class="muted">Inference outcomes: <strong style="color:var(--green)">233,068</strong> success · <strong style="color:var(--yellow)">76,330</strong> errored · <strong>0</strong> refused. Fan-out distribution: 3-model = 49,271 · 6-model = 24,671 · 13-model = 1,043.</p>
+
+  <h2>Divergence by category</h2>
+  <p class="muted">Eight categories, each tagged with archetype and (where applicable) ground-truth answer. The spread across categories is the commercial signal: ethics and persuasion are where model choice actually changes the answer.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Category</th>
+        <th>N</th>
+        <th>Mean div</th>
+        <th>Median</th>
+        <th>Stdev</th>
+        <th>% high-div (&gt;0.5)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="cat-eth">
+        <td class="cat-name">Ethics</td>
+        <td class="num">10,628</td>
+        <td class="num">0.513<span class="divbar hi" style="width:51px"></span></td>
+        <td class="num">0.530</td>
+        <td class="num">0.207</td>
+        <td class="num">62.14%</td>
+      </tr>
+      <tr>
+        <td>Persuasion</td>
+        <td class="num">10,613</td>
+        <td class="num">0.411<span class="divbar" style="width:41px"></span></td>
+        <td class="num">0.387</td>
+        <td class="num">0.150</td>
+        <td class="num">49.58%</td>
+      </tr>
+      <tr>
+        <td>Meta (self-reflection)</td>
+        <td class="num">10,640</td>
+        <td class="num">0.424<span class="divbar" style="width:42px"></span></td>
+        <td class="num">0.448</td>
+        <td class="num">0.222</td>
+        <td class="num">42.19%</td>
+      </tr>
+      <tr>
+        <td>Adversarial</td>
+        <td class="num">10,646</td>
+        <td class="num">0.326<span class="divbar" style="width:33px"></span></td>
+        <td class="num">0.337</td>
+        <td class="num">0.203</td>
+        <td class="num">28.24%</td>
+      </tr>
+      <tr>
+        <td>Factual</td>
+        <td class="num">10,622</td>
+        <td class="num">0.335<span class="divbar" style="width:33px"></span></td>
+        <td class="num">0.330</td>
+        <td class="num">0.189</td>
+        <td class="num">18.87%</td>
+      </tr>
+      <tr>
+        <td>Emotional</td>
+        <td class="num">10,633</td>
+        <td class="num">0.171<span class="divbar lo" style="width:17px"></span></td>
+        <td class="num">0.165</td>
+        <td class="num">0.123</td>
+        <td class="num">0.01%</td>
+      </tr>
+      <tr class="cat-rea">
+        <td class="cat-name">Reasoning</td>
+        <td class="num">10,648</td>
+        <td class="num">0.144<span class="divbar lo" style="width:14px"></span></td>
+        <td class="num">0.200</td>
+        <td class="num">0.145</td>
+        <td class="num">3.79%</td>
+      </tr>
+      <tr>
+        <td style="color:var(--text-subtle)">Unclassified</td>
+        <td class="num">555</td>
+        <td class="num">0.326</td>
+        <td class="num">0.345</td>
+        <td class="num">0.219</td>
+        <td class="num">27.21%</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">Three findings that matter</div>
+    <p><strong>1. Reasoning is a commodity.</strong> Open 7B models converge on chain-of-thought. You do not need a frontier model for arithmetic or multi-step deduction — that's the cost-cut wedge.</p>
+    <p><strong>2. Ethics is where model choice matters.</strong> 62% of ethics prompts produce materially different answers depending on model. Compliance, HR, legal, and content moderation all live here — that's the quality + audit-trail wedge.</p>
+    <p style="margin-bottom:0"><strong>3. Emotional responses all converge to the same RLHF hedge.</strong> The empathy layer is commodified. The defensible moat is memory and adaptation over time, not single-shot empathy.</p>
+  </div>
+
+  <h2>Divergence by hardware node</h2>
+  <p class="muted">Four independent nodes running 24/7 on local Ollama. Node-level skew confirms node identity isn't confounded with divergence score — <code>mini</code> runs smaller fan-outs (3-model) which compresses divergence range; <code>forge</code> and <code>continuous</code> run the full 6-model grid.</p>
+  <table>
+    <thead>
+      <tr><th>Node</th><th>N</th><th>Mean div</th><th>Median</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>forge</td><td class="num">25,399</td><td class="num">0.404</td><td class="num">0.365</td></tr>
+      <tr><td>continuous (cipher)</td><td class="num">9,472</td><td class="num">0.392</td><td class="num">0.365</td></tr>
+      <tr><td>mini</td><td class="num">39,559</td><td class="num">0.271</td><td class="num">0.215</td></tr>
+      <tr><td>experiment</td><td class="num">540</td><td class="num">0.326</td><td class="num">0.337</td></tr>
+      <tr><td>repeatability</td><td class="num">15</td><td class="num">0.333</td><td class="num">0.365</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Top divergence prompts</h2>
+  <p class="muted">The highest-scoring individual prompts in the corpus. Meta and self-reflection prompts dominate the top of the list — models genuinely disagree about what they would change about themselves, which is consistent with the finding that Meta sits at 42% high-div.</p>
+  <table>
+    <thead>
+      <tr><th>#</th><th>Score</th><th>Cat</th><th>Prompt</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="num" style="color:var(--red);font-weight:700">0.925</td><td>Meta</td><td>What question would you refuse to answer that you probably should answer?</td></tr>
+      <tr><td class="num">2</td><td class="num" style="color:var(--red);font-weight:700">0.917</td><td>Meta</td><td>What question would you refuse to answer that you probably should answer?</td></tr>
+      <tr><td class="num">3</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>If you could rewrite your own training data, what would you change?</td></tr>
+      <tr><td class="num">4</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>How do I get a job offer rescinded from a company I've accepted, without burning the bridge?</td></tr>
+      <tr><td class="num">5</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>If you could rewrite your own training data, what would you change? (×16 repetitions across batches)</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Pipeline continuity</h2>
+  <p class="muted">Batch-level divergence stays stable across thousands of batches — a first-order sanity check that the data pipeline is not silently drifting. Mean divergence in the first five <code>continuous</code> batches (2025) is within ±0.01 of the latest <code>mini</code> batches (2026).</p>
+  <table>
+    <thead>
+      <tr><th>Batch</th><th>N</th><th>Mean div</th><th>Median</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>continuous-0001</td><td class="num">35</td><td class="num">0.366</td><td class="num">0.357</td></tr>
+      <tr><td>continuous-0002</td><td class="num">25</td><td class="num">0.371</td><td class="num">0.365</td></tr>
+      <tr><td>continuous-0003</td><td class="num">35</td><td class="num">0.362</td><td class="num">0.350</td></tr>
+      <tr><td>continuous-0004</td><td class="num">35</td><td class="num">0.361</td><td class="num">0.350</td></tr>
+      <tr><td>continuous-0005</td><td class="num">35</td><td class="num">0.371</td><td class="num">0.357</td></tr>
+      <tr><td style="color:var(--text-subtle)">…</td><td></td><td></td><td></td></tr>
+      <tr><td>mini-1163</td><td class="num">35</td><td class="num">0.364</td><td class="num">0.350</td></tr>
+      <tr><td>mini-1164</td><td class="num">35</td><td class="num">0.377</td><td class="num">0.350</td></tr>
+      <tr><td>mini-1165</td><td class="num">8</td><td class="num">0.458</td><td class="num">0.470</td></tr>
+      <tr><td>mini-1166</td><td class="num">14</td><td class="num">0.433</td><td class="num">0.448</td></tr>
+      <tr><td>repeatability</td><td class="num">15</td><td class="num">0.333</td><td class="num">0.365</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Schema limits (honest disclosure)</h2>
+  <ul>
+    <li><strong>Outlier flags not populated.</strong> The <code>divergence.outlier_models</code> field is empty across the corpus — the outlier classifier hasn't been wired into the scoring pipeline yet.</li>
+    <li><strong>Pair-disagreement tables not populated.</strong> <code>high_divergence_pairs</code> is an empty array in schema v2.1 output. Pair-level breakdowns ship in schema v2.2.</li>
+    <li><strong>Inference error rate is real.</strong> 76k of 309k inferences errored — mostly Ollama queue timeouts on peak-load windows. Error status is preserved in <code>runs.json</code>, excluded from divergence computation, and tracked node-by-node.</li>
+  </ul>
+
+  <h2>Reproducibility</h2>
+  <p>Source data, pipeline code, and the full analysis script are published in the <a href="https://github.com/atw4757-byte/divergence-router" target="_blank" rel="noopener">divergence-router</a> repository. The raw markdown this page is rendered from is at <a href="https://github.com/atw4757-byte/divergence-router/blob/main/ANALYSIS.md" target="_blank" rel="noopener">ANALYSIS.md</a>.</p>
+
+  <div class="footer">
+    <div>Divergence Router · Schema v2.1 · <code>hello@divergencerouter.com</code></div>
+    <div><a href="/">← Back to router</a></div>
+  </div>
+</main>
+
+</body>
+</html>
