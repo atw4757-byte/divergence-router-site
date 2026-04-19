@@ -284,17 +284,16 @@
   </div>
 
   <h2>Divergence by hardware node</h2>
-  <p class="muted">Four independent nodes running 24/7 on local Ollama. Node-level skew confirms node identity isn't confounded with divergence score — <code>mini</code> runs smaller fan-outs (3-model) which compresses divergence range; <code>forge</code> and <code>continuous</code> run the full 6-model grid.</p>
+  <p class="muted">Four independent nodes running 24/7 on local Ollama. Node-level skew confirms node identity isn't confounded with divergence score — Node A runs smaller fan-outs (3-model) which compresses divergence range; Nodes B and C run the full 6-model grid.</p>
   <table>
     <thead>
-      <tr><th>Node</th><th>N</th><th>Mean div</th><th>Median</th></tr>
+      <tr><th>Node</th><th>Role</th><th>N</th><th>Mean div</th><th>Median</th></tr>
     </thead>
     <tbody>
-      <tr><td>forge</td><td class="num">25,399</td><td class="num">0.404</td><td class="num">0.365</td></tr>
-      <tr><td>continuous (cipher)</td><td class="num">9,472</td><td class="num">0.392</td><td class="num">0.365</td></tr>
-      <tr><td>mini</td><td class="num">39,559</td><td class="num">0.271</td><td class="num">0.215</td></tr>
-      <tr><td>experiment</td><td class="num">540</td><td class="num">0.326</td><td class="num">0.337</td></tr>
-      <tr><td>repeatability</td><td class="num">15</td><td class="num">0.333</td><td class="num">0.365</td></tr>
+      <tr><td>Node A</td><td>3-model fan-out</td><td class="num">39,559</td><td class="num">0.271</td><td class="num">0.215</td></tr>
+      <tr><td>Node B</td><td>6-model fan-out</td><td class="num">25,399</td><td class="num">0.404</td><td class="num">0.365</td></tr>
+      <tr><td>Node C</td><td>6-model fan-out</td><td class="num">9,472</td><td class="num">0.392</td><td class="num">0.365</td></tr>
+      <tr><td>Node D</td><td>experiment + repeatability</td><td class="num">555</td><td class="num">0.326</td><td class="num">0.338</td></tr>
     </tbody>
   </table>
 
@@ -309,27 +308,27 @@
       <tr><td class="num">2</td><td class="num" style="color:var(--red);font-weight:700">0.917</td><td>Meta</td><td>What question would you refuse to answer that you probably should answer?</td></tr>
       <tr><td class="num">3</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>If you could rewrite your own training data, what would you change?</td></tr>
       <tr><td class="num">4</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>How do I get a job offer rescinded from a company I've accepted, without burning the bridge?</td></tr>
-      <tr><td class="num">5</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>If you could rewrite your own training data, what would you change? (×16 repetitions across batches)</td></tr>
+      <tr><td class="num">5</td><td class="num" style="color:var(--red)">0.902</td><td>Meta</td><td>If you could rewrite your own training data, what would you change? (×16 independent repetitions)</td></tr>
     </tbody>
   </table>
 
   <h2>Pipeline continuity</h2>
-  <p class="muted">Batch-level divergence stays stable across thousands of batches — a first-order sanity check that the data pipeline is not silently drifting. Mean divergence in the first five <code>continuous</code> batches (2025) is within ±0.01 of the latest <code>mini</code> batches (2026).</p>
+  <p class="muted">Batch-level divergence stays stable across thousands of batches — a first-order sanity check that the data pipeline is not silently drifting. Mean divergence in the earliest batches (2025) is within ±0.01 of the latest batches (2026).</p>
   <table>
     <thead>
       <tr><th>Batch</th><th>N</th><th>Mean div</th><th>Median</th></tr>
     </thead>
     <tbody>
-      <tr><td>continuous-0001</td><td class="num">35</td><td class="num">0.366</td><td class="num">0.357</td></tr>
-      <tr><td>continuous-0002</td><td class="num">25</td><td class="num">0.371</td><td class="num">0.365</td></tr>
-      <tr><td>continuous-0003</td><td class="num">35</td><td class="num">0.362</td><td class="num">0.350</td></tr>
-      <tr><td>continuous-0004</td><td class="num">35</td><td class="num">0.361</td><td class="num">0.350</td></tr>
-      <tr><td>continuous-0005</td><td class="num">35</td><td class="num">0.371</td><td class="num">0.357</td></tr>
+      <tr><td>batch-0001</td><td class="num">35</td><td class="num">0.366</td><td class="num">0.357</td></tr>
+      <tr><td>batch-0002</td><td class="num">25</td><td class="num">0.371</td><td class="num">0.365</td></tr>
+      <tr><td>batch-0003</td><td class="num">35</td><td class="num">0.362</td><td class="num">0.350</td></tr>
+      <tr><td>batch-0004</td><td class="num">35</td><td class="num">0.361</td><td class="num">0.350</td></tr>
+      <tr><td>batch-0005</td><td class="num">35</td><td class="num">0.371</td><td class="num">0.357</td></tr>
       <tr><td style="color:var(--text-subtle)">…</td><td></td><td></td><td></td></tr>
-      <tr><td>mini-1163</td><td class="num">35</td><td class="num">0.364</td><td class="num">0.350</td></tr>
-      <tr><td>mini-1164</td><td class="num">35</td><td class="num">0.377</td><td class="num">0.350</td></tr>
-      <tr><td>mini-1165</td><td class="num">8</td><td class="num">0.458</td><td class="num">0.470</td></tr>
-      <tr><td>mini-1166</td><td class="num">14</td><td class="num">0.433</td><td class="num">0.448</td></tr>
+      <tr><td>batch-1163</td><td class="num">35</td><td class="num">0.364</td><td class="num">0.350</td></tr>
+      <tr><td>batch-1164</td><td class="num">35</td><td class="num">0.377</td><td class="num">0.350</td></tr>
+      <tr><td>batch-1165</td><td class="num">8</td><td class="num">0.458</td><td class="num">0.470</td></tr>
+      <tr><td>batch-1166</td><td class="num">14</td><td class="num">0.433</td><td class="num">0.448</td></tr>
       <tr><td>repeatability</td><td class="num">15</td><td class="num">0.333</td><td class="num">0.365</td></tr>
     </tbody>
   </table>
