@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Request received — Divergence Router</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root {
+      --bg: #0d1117; --bg-card: #1c2128; --border: #30363d;
+      --text: #e6edf3; --text-muted: #8b949e; --text-subtle: #6e7681;
+      --blue: #58a6ff; --green: #3fb950;
+      --mono: "JetBrains Mono", "Fira Code", Consolas, monospace;
+      --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text); font-family: var(--sans);
+      line-height: 1.65; min-height: 100vh; display: grid; place-items: center; padding: 48px 24px;
+    }
+    .card {
+      max-width: 600px; width: 100%; background: var(--bg-card);
+      border: 1px solid var(--border); border-radius: 12px; padding: 48px 40px;
+    }
+    .tag {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--green); margin-bottom: 16px;
+    }
+    h1 { font-size: 32px; font-weight: 800; letter-spacing: -.02em; margin-bottom: 20px; }
+    h2 { font-size: 15px; font-weight: 700; margin: 28px 0 8px; color: var(--text); }
+    p { font-size: 15px; color: var(--text-muted); margin-bottom: 14px; }
+    ul { padding-left: 20px; margin-bottom: 14px; }
+    li { color: var(--text-muted); font-size: 15px; margin-bottom: 6px; }
+    code { font-family: var(--mono); font-size: 13px; background: var(--bg); padding: 2px 6px; border: 1px solid var(--border); border-radius: 4px; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .btn {
+      display: inline-block; margin-top: 24px; padding: 11px 22px;
+      background: var(--blue); color: #0d1117; font-weight: 600; font-size: 14px;
+      border-radius: 8px; text-decoration: none;
+    }
+    .btn:hover { text-decoration: none; }
+    .meta {
+      font-family: var(--mono); font-size: 12px; color: var(--text-subtle);
+      margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border);
+      letter-spacing: .04em;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="tag">✓ Request received</div>
+    <h1>Your access request is in.</h1>
+    <p>We'll reply within 48 hours with a Stripe payment link (paid tiers) or a license agreement (academic tier).</p>
+
+    <h2>What happens next</h2>
+    <ol style="padding-left:20px; margin-bottom:14px;">
+      <li style="color:var(--text-muted); font-size:15px; margin-bottom:8px;">We review your intended use and confirm the right tier.</li>
+      <li style="color:var(--text-muted); font-size:15px; margin-bottom:8px;">You receive a payment link (or license for academic) by email.</li>
+      <li style="color:var(--text-muted); font-size:15px; margin-bottom:8px;">On payment, you get a <strong>private GitHub repo invite</strong> — that's where the JSONL snapshots live. No credential handoff, no signed-URL expiry to manage.</li>
+      <li style="color:var(--text-muted); font-size:15px;">Daily refreshes land as new commits. <code>git pull</code> gives you the latest corpus.</li>
+    </ol>
+
+    <p>If you haven't heard back in 48 hours, check your spam folder — or email <a href="mailto:hello@divergencerouter.com">hello@divergencerouter.com</a> directly.</p>
+
+    <a href="/" class="btn">← Back to site</a>
+
+    <div class="meta">divergencerouter.com · dataset · schema v2.1</div>
+  </div>
+</body>
+</html>

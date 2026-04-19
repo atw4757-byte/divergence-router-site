@@ -134,6 +134,60 @@
     .product-bullets li::before { content: "›"; position: absolute; left: 0; color: var(--blue); font-family: var(--mono); font-weight: 700; }
     .product-status { font-family: var(--mono); font-size: 11px; color: var(--text-subtle); letter-spacing: .04em; text-transform: uppercase; padding-top: 12px; border-top: 1px solid var(--border-subtle); }
 
+    /* Roadmap / live-stats */
+    .live-strip { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:0; border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-top:40px; background:var(--bg-card); }
+    .live-stat { padding:24px 20px; border-right:1px solid var(--border); }
+    .live-stat:last-child { border-right:none; }
+    .live-stat-label { font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-subtle); margin-bottom:8px; display:flex; align-items:center; gap:6px; }
+    .live-dot { width:6px; height:6px; background:var(--green); border-radius:50%; animation:pulse 2s ease infinite; }
+    .live-stat-val { font-family:var(--mono); font-size:26px; font-weight:800; color:var(--green); letter-spacing:-.02em; line-height:1; margin-bottom:4px; }
+    .live-stat-sub { font-size:11px; color:var(--text-subtle); font-family:var(--mono); }
+    .live-updated { font-family:var(--mono); font-size:11px; color:var(--text-subtle); margin-top:12px; text-align:right; }
+
+    .roadmap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin-top:48px; }
+    .roadmap-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:28px; }
+    .roadmap-tag { font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); margin-bottom:12px; }
+    .roadmap-title { font-size:17px; font-weight:700; margin-bottom:16px; color:var(--text); line-height:1.3; }
+    .roadmap-list { list-style:none; padding:0; margin:0; }
+    .roadmap-list li { font-size:13px; color:var(--text-muted); padding:6px 0; border-bottom:1px dashed var(--border-subtle); display:flex; justify-content:space-between; gap:12px; }
+    .roadmap-list li:last-child { border-bottom:none; }
+    .roadmap-list li .chip { font-family:var(--mono); font-size:10px; color:var(--text-subtle); text-transform:uppercase; letter-spacing:.05em; white-space:nowrap; }
+    .roadmap-list li .chip.live { color:var(--green); }
+    .roadmap-list li .chip.soon { color:var(--yellow); }
+    .roadmap-list li .chip.target { color:var(--blue); }
+
+    /* Access / pricing */
+    .tier-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; margin:48px 0 56px; }
+    .tier-card { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:32px; display:flex; flex-direction:column; position:relative; }
+    .tier-card.featured { border-color:var(--blue); }
+    .tier-card.featured::before { content:"Most common"; position:absolute; top:-11px; left:24px; background:var(--blue); color:#0d1117; font-family:var(--mono); font-size:10px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:10px; }
+    .tier-name { font-family:var(--mono); font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--text-subtle); margin-bottom:14px; }
+    .tier-price { font-size:32px; font-weight:800; letter-spacing:-.02em; margin-bottom:4px; color:var(--text); }
+    .tier-price .currency { color:var(--text-subtle); font-weight:500; font-size:22px; margin-right:2px; }
+    .tier-price-sub { font-size:12px; color:var(--text-subtle); font-family:var(--mono); margin-bottom:20px; }
+    .tier-bullets { list-style:none; padding:0; margin:0 0 20px; flex:1; }
+    .tier-bullets li { font-size:13px; color:var(--text-muted); padding:6px 0 6px 20px; position:relative; line-height:1.55; }
+    .tier-bullets li::before { content:"✓"; position:absolute; left:0; color:var(--green); font-weight:700; }
+    .tier-foot { font-family:var(--mono); font-size:11px; color:var(--text-subtle); padding-top:14px; border-top:1px solid var(--border-subtle); }
+
+    .access-form { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:36px; max-width:720px; }
+    .access-form h3 { font-size:20px; font-weight:700; margin-bottom:8px; color:var(--text); }
+    .access-form p.note { font-size:14px; color:var(--text-muted); margin-bottom:24px; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+    .form-field { display:flex; flex-direction:column; gap:6px; }
+    .form-field.full { grid-column:1 / -1; }
+    .form-field label { font-family:var(--mono); font-size:11px; letter-spacing:.06em; text-transform:uppercase; color:var(--text-subtle); }
+    .form-field input, .form-field select, .form-field textarea {
+      background:var(--bg); border:1px solid var(--border); border-radius:var(--radius);
+      color:var(--text); font-family:var(--sans); font-size:14px; padding:10px 12px;
+      transition:border-color var(--transition);
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus {
+      outline:none; border-color:var(--blue);
+    }
+    .form-field textarea { resize:vertical; min-height:90px; font-family:var(--sans); }
+    .form-hp { position:absolute; left:-9999px; opacity:0; pointer-events:none; }
+
     /* Footer */
     footer { background: var(--bg); border-top: 1px solid var(--border-subtle); padding: 48px 0 40px; }
     .footer-inner { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 24px; }
@@ -186,10 +240,11 @@
     <ul class="nav-links">
       <li><a href="#thesis">Thesis</a></li>
       <li><a href="#data">Data</a></li>
+      <li><a href="#roadmap">Roadmap</a></li>
       <li><a href="#findings">Findings</a></li>
-      <li><a href="#products">Products</a></li>
+      <li><a href="#access">Pricing</a></li>
       <li><a href="/amc/">Memory Core</a></li>
-      <li><a href="mailto:hello@divergencerouter.com" class="nav-cta">Get access →</a></li>
+      <li><a href="#access" class="nav-cta">Get access →</a></li>
     </ul>
   </div>
 </nav>
@@ -197,24 +252,24 @@
 <!-- ─── Hero ─────────────────────────────────────────── -->
 <section id="hero">
   <div class="container">
-    <div class="hero-eyebrow">Pipeline live · 4 nodes · 2,355 shards and growing</div>
+    <div class="hero-eyebrow">Pipeline live · 4 nodes · <span data-stat="shards">2,485</span> shards and growing</div>
     <h1 class="hero-headline">
       Open-source models disagree.<br>
       We measured it. Now you can <em>route by it</em>.
     </h1>
     <p class="hero-sub">
-      Every AI team quietly pays frontier prices for prompts where a 7B open model would have been identical. And every team quietly ships a cheap model into the 30% of prompts where model choice actually changes the answer. We built the empirical data — 74,985 prompts, 309,398 model inferences — to tell you which is which.
+      Every AI team quietly pays frontier prices for prompts where a 7B open model would have been identical. And every team quietly ships a cheap model into the 30% of prompts where model choice actually changes the answer. We built the empirical data — and we add to it every fifteen minutes.
     </p>
 
     <div class="hero-stats reveal-stagger">
-      <div class="hero-stat"><div class="hero-stat-num">74,985</div><div class="hero-stat-label">prompts measured</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">309,398</div><div class="hero-stat-label">model inferences</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">29.23%</div><div class="hero-stat-label">high-divergence</div></div>
-      <div class="hero-stat"><div class="hero-stat-num">4</div><div class="hero-stat-label">continuous nodes</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="prompts">74,985</div><div class="hero-stat-label">prompts measured</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="inferences">309,398</div><div class="hero-stat-label">model inferences</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="high_div_pct">29.23%</div><div class="hero-stat-label">high-divergence</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="nodes">4</div><div class="hero-stat-label">continuous nodes</div></div>
     </div>
 
     <div class="cta-row">
-      <a href="mailto:hello@divergencerouter.com?subject=Dataset%20access" class="btn btn-primary">Get dataset access</a>
+      <a href="#access" class="btn btn-primary">Get dataset access</a>
       <a href="#findings" class="btn btn-secondary">See findings</a>
     </div>
   </div>
@@ -292,6 +347,87 @@
         <div class="pipeline-step-body">Continuous aggregation into category-level and model-pair-level stats. Sentinel monitors throughput + quality every 2h. Analysis regenerated daily into category ranking + pair-disagreement tables.</div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ─── Roadmap / Live status ─────────────────────────────── -->
+<section id="roadmap">
+  <div class="container">
+    <div class="section-label">Pipeline — Live</div>
+    <h2 class="section-title">This dataset isn't a snapshot. It's a compounding asset.</h2>
+    <p class="section-sub">
+      Every 15 minutes, the pipeline writes new prompt-response shards to disk. The counters below refresh from the live corpus. Below them: the model roster we're running today, what we're adding next, and the scale target that makes this dataset meaningfully bigger than any public divergence benchmark.
+    </p>
+
+    <div class="live-strip reveal">
+      <div class="live-stat">
+        <div class="live-stat-label"><span class="live-dot"></span>Prompts</div>
+        <div class="live-stat-val" data-stat="prompts">74,985</div>
+        <div class="live-stat-sub">cumulative</div>
+      </div>
+      <div class="live-stat">
+        <div class="live-stat-label"><span class="live-dot"></span>Inferences</div>
+        <div class="live-stat-val" data-stat="inferences">309,398</div>
+        <div class="live-stat-sub">across 7 model families</div>
+      </div>
+      <div class="live-stat">
+        <div class="live-stat-label"><span class="live-dot"></span>Shards</div>
+        <div class="live-stat-val" data-stat="shards">2,485</div>
+        <div class="live-stat-sub">30-prompt chunks on disk</div>
+      </div>
+      <div class="live-stat">
+        <div class="live-stat-label"><span class="live-dot"></span>Throughput</div>
+        <div class="live-stat-val" data-stat="throughput_24h">~2.1k</div>
+        <div class="live-stat-sub">prompts / 24h (4-node sum)</div>
+      </div>
+    </div>
+    <div class="live-updated">Last refresh: <span data-stat="updated_human">—</span> · Auto-updates every 15 min · <a href="/stats.json" style="color:var(--text-subtle);">stats.json</a></div>
+
+    <div class="roadmap-grid reveal-stagger">
+      <div class="roadmap-card">
+        <div class="roadmap-tag">Model roster · today</div>
+        <div class="roadmap-title">Seven model families, continuous fan-out</div>
+        <ul class="roadmap-list">
+          <li>Qwen 2.5 7B <span class="chip live">live</span></li>
+          <li>Mistral 7B <span class="chip live">live</span></li>
+          <li>Llama 3.1 8B <span class="chip live">live</span></li>
+          <li>Phi-3 Medium <span class="chip live">live</span></li>
+          <li>DeepSeek 7B <span class="chip live">live</span></li>
+          <li>Yi 6B <span class="chip live">live</span></li>
+          <li>Bonsai 8B / 4B / 1.7B <span class="chip live">live</span></li>
+        </ul>
+      </div>
+
+      <div class="roadmap-card">
+        <div class="roadmap-tag">Expanding fleet · next 90 days</div>
+        <div class="roadmap-title">Six more families, frontier-class open weights</div>
+        <ul class="roadmap-list">
+          <li>Qwen 3 7B / 14B <span class="chip soon">Q2</span></li>
+          <li>DeepSeek V3 distill <span class="chip soon">Q2</span></li>
+          <li>Llama 4 when released <span class="chip soon">Q2–Q3</span></li>
+          <li>GLM 4.6 9B <span class="chip soon">Q2</span></li>
+          <li>Granite 3 8B <span class="chip soon">Q2</span></li>
+          <li>Phi-4 14B <span class="chip soon">Q3</span></li>
+        </ul>
+      </div>
+
+      <div class="roadmap-card">
+        <div class="roadmap-tag">Scale target · EOY 2026</div>
+        <div class="roadmap-title">500k prompts, 13-model fan-out default</div>
+        <ul class="roadmap-list">
+          <li>Prompts <span class="chip target">75k → 500k</span></li>
+          <li>Model families <span class="chip target">7 → 13</span></li>
+          <li>13-model fan-out share <span class="chip target">1.4% → 50%</span></li>
+          <li>Daily throughput <span class="chip target">2k → 20k</span></li>
+          <li>Schema <span class="chip target">v2.1 → v2.3</span></li>
+          <li>Pair-level disagreement tables <span class="chip soon">v2.2</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:32px; font-size:13px; color:var(--text-subtle);">
+      Expansion pace and model additions are tracked publicly in <a href="https://github.com/atw4757-byte/divergence-router/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a>. New families are added monthly.
+    </p>
   </div>
 </section>
 
@@ -423,7 +559,7 @@
           <li>Hardware provenance (which node, which models)</li>
           <li>Commercial and academic licenses</li>
         </ul>
-        <div class="product-status">Status · taking licensing inquiries</div>
+        <div class="product-status"><a href="#access">See pricing & request access →</a></div>
       </div>
 
       <div class="product-card">
@@ -438,7 +574,7 @@
           <li>Full divergence trace on every routed call</li>
           <li>Ensemble mode for compliance-sensitive categories</li>
         </ul>
-        <div class="product-status">Status · private beta, waitlist open</div>
+        <div class="product-status"><a href="#access">Included with Commercial tier →</a></div>
       </div>
 
       <div class="product-card">
@@ -459,6 +595,111 @@
   </div>
 </section>
 
+<!-- ─── Access / Pricing ─────────────────────────────────── -->
+<section id="access">
+  <div class="container">
+    <div class="section-label">Dataset access</div>
+    <h2 class="section-title">Three tiers. Same data. Different license.</h2>
+    <p class="section-sub">
+      The dataset is delivered by private GitHub repository invite on payment. Daily snapshots ship as JSONL; full-corpus snapshots ship as a single compressed archive plus a signed download URL. Every record includes prompt, multi-model responses, divergence scores, category + archetype metadata, and node provenance. Schema is versioned (v2.1 today; v2.2 ships pair-level disagreement).
+    </p>
+
+    <div class="tier-grid reveal-stagger">
+      <div class="tier-card">
+        <div class="tier-name">Evaluation</div>
+        <div class="tier-price"><span class="currency">$</span>499</div>
+        <div class="tier-price-sub">one-time · 30-day read access</div>
+        <ul class="tier-bullets">
+          <li>Single current snapshot (latest JSONL)</li>
+          <li>Full prompt + response corpus</li>
+          <li>Divergence + category + archetype metadata</li>
+          <li>Internal research use only — no redistribution</li>
+          <li>48-hour delivery after purchase</li>
+        </ul>
+        <div class="tier-foot">Best for: can-we-use-this eval before committing</div>
+      </div>
+
+      <div class="tier-card featured">
+        <div class="tier-name">Commercial</div>
+        <div class="tier-price"><span class="currency">$</span>4,999<span style="font-size:16px; color:var(--text-subtle); font-weight:500">/yr</span></div>
+        <div class="tier-price-sub">ongoing · daily refreshes · team access</div>
+        <ul class="tier-bullets">
+          <li>Continuous access — daily refreshed snapshots</li>
+          <li>All current + future schema versions</li>
+          <li>Up to 10 seats (team / contractor access)</li>
+          <li>Commercial redistribution in derived products</li>
+          <li>Priority support + schema roadmap input</li>
+          <li>Router API private-beta access included</li>
+        </ul>
+        <div class="tier-foot">Best for: routing, RLHF, calibration, product teams</div>
+      </div>
+
+      <div class="tier-card">
+        <div class="tier-name">Academic</div>
+        <div class="tier-price">$0</div>
+        <div class="tier-price-sub">no cost · credentialed research</div>
+        <ul class="tier-bullets">
+          <li>Full dataset access for peer-reviewed research</li>
+          <li>Requires verifiable .edu / lab affiliation</li>
+          <li>Publication must cite this corpus</li>
+          <li>Derivative datasets must be open-licensed</li>
+          <li>Co-authorship on follow-up publications welcome</li>
+        </ul>
+        <div class="tier-foot">Best for: alignment researchers, RLHF benchmarks</div>
+      </div>
+    </div>
+
+    <div class="access-form">
+      <h3>Request access</h3>
+      <p class="note">Tell us which tier fits and how you'd use the data. We reply within 48 hours with a Stripe payment link (paid tiers) or a license agreement (academic). Data delivery is by private GitHub repo invite — no credential handoff required on your end.</p>
+
+      <form name="dataset-access" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" action="/data-thanks.html">
+        <input type="hidden" name="form-name" value="dataset-access">
+        <input type="text" name="bot-field" class="form-hp" tabindex="-1" autocomplete="off">
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-field">
+            <label for="org">Organization</label>
+            <input type="text" id="org" name="org" required>
+          </div>
+          <div class="form-field">
+            <label for="tier">Tier</label>
+            <select id="tier" name="tier" required>
+              <option value="">Select…</option>
+              <option value="evaluation">Evaluation ($499)</option>
+              <option value="commercial">Commercial ($4,999/yr)</option>
+              <option value="academic">Academic (free, credentialed)</option>
+              <option value="custom">Custom / enterprise</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-field full" style="margin-bottom:20px;">
+          <label for="use">Intended use (one or two sentences)</label>
+          <textarea id="use" name="use" required placeholder="e.g. Training a router classifier for our internal ChatOps stack — want divergence scores on ethics + factual categories as ground-truth labels."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Request access</button>
+      </form>
+    </div>
+
+    <p style="margin-top:28px; font-size:13px; color:var(--text-subtle);">
+      Questions before you request? Email <a href="mailto:hello@divergencerouter.com">hello@divergencerouter.com</a> — we're responsive. No sales team, no drip campaign.
+    </p>
+  </div>
+</section>
+
 <!-- ─── Footer ────────────────────────────────────────── -->
 <footer>
   <div class="container">
@@ -474,7 +715,9 @@
       <div class="footer-links">
         <a href="/amc/">Memory Core</a>
         <a href="#data">Pipeline</a>
-        <a href="#findings">Findings</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="/analysis/">Analysis</a>
+        <a href="#access">Pricing</a>
         <a href="https://github.com/atw4757-byte/divergence-router" target="_blank" rel="noopener">GitHub</a>
         <a href="mailto:hello@divergencerouter.com">Contact</a>
       </div>
@@ -512,6 +755,44 @@
   }, { threshold: 0.4 });
 
   sections.forEach(s => sectionObserver.observe(s));
+
+  // ── Live stats: fetch /stats.json and hydrate [data-stat] fields ──
+  function fmtNum(n) {
+    if (typeof n !== "number" || !isFinite(n)) return n;
+    if (Math.abs(n) >= 1000) return n.toLocaleString("en-US");
+    return String(n);
+  }
+  function fmtPct(n) { return (typeof n === "number") ? n.toFixed(2) + "%" : n; }
+  function fmtRelative(iso) {
+    if (!iso) return "—";
+    const t = new Date(iso).getTime();
+    if (!t) return "—";
+    const s = Math.max(0, Math.floor((Date.now() - t) / 1000));
+    if (s < 60) return s + "s ago";
+    if (s < 3600) return Math.floor(s/60) + "m ago";
+    if (s < 86400) return Math.floor(s/3600) + "h ago";
+    return Math.floor(s/86400) + "d ago";
+  }
+
+  fetch("/stats.json", { cache: "no-cache" })
+    .then(r => r.ok ? r.json() : null)
+    .then(stats => {
+      if (!stats) return;
+      const render = {
+        prompts: fmtNum(stats.prompts),
+        inferences: fmtNum(stats.inferences),
+        shards: fmtNum(stats.shards),
+        nodes: fmtNum(stats.nodes),
+        high_div_pct: fmtPct(stats.high_div_pct),
+        throughput_24h: stats.throughput_24h_human || "—",
+        updated_human: fmtRelative(stats.updated),
+      };
+      document.querySelectorAll("[data-stat]").forEach(el => {
+        const k = el.getAttribute("data-stat");
+        if (render[k] != null) el.textContent = render[k];
+      });
+    })
+    .catch(() => {});
 </script>
 
 </body>

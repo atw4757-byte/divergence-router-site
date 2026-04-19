@@ -1,0 +1,16 @@
+{
+  "updated": "2026-04-19T18:45:00Z",
+  "prompts": 80516,
+  "inferences": 332290,
+  "shards": 2444,
+  "nodes": 4,
+  "categories": 8,
+  "high_divergence": 23534,
+  "high_div_pct": 29.23,
+  "throughput_24h": 17519,
+  "throughput_24h_human": "~17.5k",
+  "schema": "v2.1",
+  "models_current": 7,
+  "models_planned": 13,
+  "note": "prompts/shards/throughput refresh live from the vault; inferences scale proportionally to the last full daily analysis (309,398 @ 74,985 prompts)."
+}
