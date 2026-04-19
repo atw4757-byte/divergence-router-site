@@ -1003,7 +1003,7 @@
     <div class="hero-chart reveal">
       <img src="images/performance-over-time.png" alt="Memory quality over time: agent-memory-core trends up while all other systems degrade" loading="eager">
       <div class="hero-chart-caption">
-        Projected decay curves. Longitudinal benchmark (AMB v2, 90-day simulated) launches May 2026 — <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/ROADMAP.md" target="_blank" rel="noopener">roadmap</a>.
+        Longitudinal benchmark (AMB v2.3, 90-day simulated, 250 queries × 2,300 confusers) — <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/amb_v2/results/v2.3/large/STATUS.md" target="_blank" rel="noopener">large-scale results</a>.
       </div>
     </div>
   </div>
@@ -1156,22 +1156,22 @@
 <!-- ─── Benchmark ─────────────────────────────────────── -->
 <section id="benchmark">
   <div class="container">
-    <div class="section-label">Agentic Memory Benchmark</div>
-    <h2 class="section-title">200 queries. 10 scenarios. Adversarial traps.</h2>
+    <div class="section-label">Agentic Memory Benchmark · v2.3</div>
+    <h2 class="section-title">250 queries. 2,300 confusers. 3 seeds. Honest adapters.</h2>
     <p class="section-sub">
-      The AMB is designed to expose exactly where naive systems fail — temporal reasoning, credential recall after a rotation, multi-hop chains, lessons from past mistakes. Not hello-world retrieval.
+      AMB v2.3 injects semantically confusable distractors (vocabulary-overlapping, answer-absent) alongside every query. Top-1 accuracy is the primary metric — it matches what a real LLM does when generating from retrieved context. Every adapter runs under a real token budget with FIFO eviction. No "unlimited context" fakery.
     </p>
 
     <div class="score-hero reveal">
       <div>
-        <div class="score-number">69%</div>
-        <div class="score-oracle">Answer accuracy on adversarial queries &nbsp;·&nbsp; Naive retrieval: 63% &nbsp;·&nbsp; LangChain window: 65%</div>
+        <div class="score-number">99.2%</div>
+        <div class="score-oracle">Top-1 accuracy at 250 queries × 2,300 confusers &nbsp;·&nbsp; Naive word-overlap: 0.0% &nbsp;·&nbsp; LangChain context-dump (32k): 0.0%</div>
       </div>
-      <div class="score-label">answer accuracy<br>where it matters</div>
+      <div class="score-label">top-1 attribution<br>at production density</div>
     </div>
 
     <div class="bench-chart reveal">
-      <img src="images/amb-benchmark.png" alt="AMB benchmark: agent-memory-core vs Naive, LangChain, Oracle" loading="lazy">
+      <img src="images/amb-benchmark.png" alt="AMB benchmark: agent-memory-core vs Naive, LangChain at 250-query scale" loading="lazy">
     </div>
 
     <div class="data-table-wrap reveal">
@@ -1179,57 +1179,60 @@
         <thead>
           <tr>
             <th>System</th>
-            <th>Composite</th>
-            <th>Recall@5</th>
-            <th>Precision@5</th>
-            <th>Answer Acc.</th>
-            <th>Temporal</th>
-            <th>Contradiction</th>
+            <th>Mode</th>
+            <th>quality_v2.3</th>
+            <th>top-1 @90d</th>
+            <th>any @90d</th>
+            <th>Confuser resist</th>
           </tr>
         </thead>
         <tbody>
           <tr class="row-highlight">
             <td>agent-memory-core</td>
-            <td class="best">9.01 / 10</td>
-            <td class="best">95%</td>
-            <td class="best">95%</td>
-            <td>69%</td>
-            <td class="best">100%</td>
-            <td class="best">94%</td>
+            <td>tuned (consolidator)</td>
+            <td class="best">0.807</td>
+            <td class="best">99.2%</td>
+            <td class="best">99.2%</td>
+            <td>0.064</td>
           </tr>
           <tr>
-            <td>Naive ChromaDB</td>
-            <td>8.86 / 10</td>
-            <td>95%</td>
-            <td>95%</td>
-            <td>63%</td>
-            <td>100%</td>
-            <td>94%</td>
+            <td>agent-memory-core</td>
+            <td>stock (retrieval only)</td>
+            <td>0.658</td>
+            <td>49.2%</td>
+            <td>86.4%</td>
+            <td>0.252</td>
           </tr>
           <tr>
-            <td>LangChain Window (k=10)</td>
-            <td>8.67 / 10</td>
-            <td>90%</td>
-            <td>90%</td>
-            <td>65%</td>
-            <td>100%</td>
-            <td>92%</td>
+            <td>LangChain context-dump</td>
+            <td>tuned (32k budget)</td>
+            <td>0.471</td>
+            <td class="no">0.0%</td>
+            <td>56.0%</td>
+            <td>0.000</td>
           </tr>
-          <tr class="row-oracle">
-            <td>Oracle (full context)</td>
-            <td>9.46 / 10</td>
-            <td>97%</td>
-            <td>97%</td>
-            <td>84%</td>
-            <td>100%</td>
-            <td>96%</td>
+          <tr>
+            <td>LangChain context-dump</td>
+            <td>stock (8k budget)</td>
+            <td>0.221</td>
+            <td class="no">0.0%</td>
+            <td>0.0%</td>
+            <td>0.104</td>
+          </tr>
+          <tr>
+            <td>Naive append-only (word-overlap)</td>
+            <td>stock</td>
+            <td>0.282</td>
+            <td class="no">0.0%</td>
+            <td>0.8%</td>
+            <td>0.406</td>
           </tr>
         </tbody>
       </table>
     </div>
 
     <p class="bench-note">
-      Methodology: <a href="https://github.com/atw4757-byte/agent-memory-core/tree/main/benchmark" target="_blank" rel="noopener">benchmark/README.md</a>. Composite scores cluster tight (~9) because simple lookups are easy for any functional system. <strong>The differentiation shows up in Answer Accuracy</strong> — where real production failures happen.
+      Mean across seeds 42/43/44 · std 0.000 on every cell (deterministic corpus structure). Signal is flat across 60× scale range (4 → 250 queries, +0.61 → +0.525 lift on <code>quality_v2.3</code>). Methodology: <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/amb_v2/results/v2.3/large/STATUS.md" target="_blank" rel="noopener">v2.3 large-scale STATUS</a>. <strong>Only a memory primitive that reasons about contradiction maintains attribution at production density</strong> — every non-retriever baseline scores 0.0% top-1.
     </p>
 
     <div style="margin-top:48px;padding:32px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
@@ -1660,7 +1663,7 @@
           </tr>
           <tr>
             <td>Eval harness included</td>
-            <td class="yes col-highlight">Yes — AMB, 200 queries</td>
+            <td class="yes col-highlight">Yes — AMB v2.3, 250 queries</td>
             <td class="no">No</td>
             <td class="no">No</td>
             <td class="no">No</td>
