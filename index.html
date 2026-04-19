@@ -356,7 +356,7 @@
     <div class="section-label">Pipeline — Live</div>
     <h2 class="section-title">This dataset isn't a snapshot. It's a compounding asset.</h2>
     <p class="section-sub">
-      Every 15 minutes, the pipeline writes new prompt-response shards to disk. The counters below refresh from the live corpus. Below them: the model roster we're running today, what we're adding next, and the scale target that makes this dataset meaningfully bigger than any public divergence benchmark.
+      Every 15 minutes, the pipeline writes new prompt-response shards to disk. The counters below refresh from the live corpus. Below them: the model roster today, the families we're onboarding next, and the ambition we're hardware-investing toward. We are not capped at today's fleet — every notable open-weights release enters the corpus within days of its drop.
     </p>
 
     <div class="live-strip reveal">
@@ -368,7 +368,7 @@
       <div class="live-stat">
         <div class="live-stat-label"><span class="live-dot"></span>Inferences</div>
         <div class="live-stat-val" data-stat="inferences">309,398</div>
-        <div class="live-stat-sub">across 7 model families</div>
+        <div class="live-stat-sub">across a growing roster</div>
       </div>
       <div class="live-stat">
         <div class="live-stat-label"><span class="live-dot"></span>Shards</div>
@@ -386,7 +386,7 @@
     <div class="roadmap-grid reveal-stagger">
       <div class="roadmap-card">
         <div class="roadmap-tag">Model roster · today</div>
-        <div class="roadmap-title">Seven model families, continuous fan-out</div>
+        <div class="roadmap-title">Seven families, continuous fan-out</div>
         <ul class="roadmap-list">
           <li>Qwen 2.5 7B <span class="chip live">live</span></li>
           <li>Mistral 7B <span class="chip live">live</span></li>
@@ -399,34 +399,41 @@
       </div>
 
       <div class="roadmap-card">
-        <div class="roadmap-tag">Expanding fleet · next 90 days</div>
-        <div class="roadmap-title">Six more families, frontier-class open weights</div>
+        <div class="roadmap-tag">Onboarding · next 90 days</div>
+        <div class="roadmap-title">Fifteen+ new families incoming</div>
         <ul class="roadmap-list">
-          <li>Qwen 3 7B / 14B <span class="chip soon">Q2</span></li>
+          <li>Qwen 3 7B / 14B / 32B <span class="chip soon">Q2</span></li>
           <li>DeepSeek V3 distill <span class="chip soon">Q2</span></li>
-          <li>Llama 4 when released <span class="chip soon">Q2–Q3</span></li>
-          <li>GLM 4.6 9B <span class="chip soon">Q2</span></li>
+          <li>Llama 4 at release <span class="chip soon">Q2–Q3</span></li>
+          <li>GLM 4.6 9B / 32B <span class="chip soon">Q2</span></li>
           <li>Granite 3 8B <span class="chip soon">Q2</span></li>
-          <li>Phi-4 14B <span class="chip soon">Q3</span></li>
+          <li>Phi-4 14B <span class="chip soon">Q2</span></li>
+          <li>Command R+ open <span class="chip soon">Q2</span></li>
+          <li>Nous Hermes 3 / Mixtral-variant stack <span class="chip soon">Q2</span></li>
+          <li>OLMo 2 / Tülu 3 <span class="chip soon">Q3</span></li>
+          <li>Yi 1.5 + Yi-Coder <span class="chip soon">Q3</span></li>
+          <li>StarCoder 2 / CodeLlama refresh <span class="chip soon">Q3</span></li>
+          <li>Mistral Large-instruct (open) <span class="chip soon">Q3</span></li>
         </ul>
       </div>
 
       <div class="roadmap-card">
-        <div class="roadmap-tag">Scale target · EOY 2026</div>
-        <div class="roadmap-title">500k prompts, 13-model fan-out default</div>
+        <div class="roadmap-tag">Ambition · 12 months</div>
+        <div class="roadmap-title">Every open release, tested within a week</div>
         <ul class="roadmap-list">
-          <li>Prompts <span class="chip target">75k → 500k</span></li>
-          <li>Model families <span class="chip target">7 → 13</span></li>
-          <li>13-model fan-out share <span class="chip target">1.4% → 50%</span></li>
-          <li>Daily throughput <span class="chip target">2k → 20k</span></li>
-          <li>Schema <span class="chip target">v2.1 → v2.3</span></li>
-          <li>Pair-level disagreement tables <span class="chip soon">v2.2</span></li>
+          <li>Model variants online <span class="chip target">7 → 50+</span></li>
+          <li>Prompts <span class="chip target">80k → 2M+</span></li>
+          <li>Daily throughput <span class="chip target">17k → 200k+</span></li>
+          <li>Fan-out cap <span class="chip target">13 → 50+</span></li>
+          <li>Specializations <span class="chip target">code · math · multilingual</span></li>
+          <li>Time-to-add on new weights <span class="chip target">&lt; 7 days</span></li>
+          <li>Hardware <span class="chip target">scales with dataset demand</span></li>
         </ul>
       </div>
     </div>
 
     <p style="margin-top:32px; font-size:13px; color:var(--text-subtle);">
-      Expansion pace and model additions are tracked publicly in <a href="https://github.com/atw4757-byte/divergence-router/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a>. New families are added monthly.
+      Today's 13-model fan-out cap was a first-corpus design choice, not a platform limit. Hardware expands with customer demand — each new notable open-weights release enters the pipeline within a week of its drop. Expansion pace is tracked publicly in <a href="https://github.com/atw4757-byte/divergence-router/blob/main/CHANGELOG.md" target="_blank" rel="noopener">CHANGELOG.md</a>.
     </p>
   </div>
 </section>

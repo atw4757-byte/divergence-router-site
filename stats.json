@@ -11,6 +11,7 @@
   "throughput_24h_human": "~17.5k",
   "schema": "v2.1",
   "models_current": 7,
-  "models_planned": 13,
-  "note": "prompts/shards/throughput refresh live from the vault; inferences scale proportionally to the last full daily analysis (309,398 @ 74,985 prompts)."
+  "models_onboarding_90d": 15,
+  "models_target_12mo": 50,
+  "note": "prompts/shards/throughput refresh live from the vault; inferences scale proportionally to the last full daily analysis (309,398 @ 74,985 prompts). Model-count targets are directional, not capped — hardware expands with demand."
 }
