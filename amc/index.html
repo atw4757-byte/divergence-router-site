@@ -310,7 +310,7 @@
       Ours <em>endures</em>.
     </h1>
     <p class="lede">
-      The Agentic Memory Benchmark v2.3 plants a contradictory fact on day zero, plants a second wave on day fourteen, then watches every memory system across a simulated ninety-day horizon. Below: what happens to each.
+      Agents remember what users tell them &mdash; until a user changes their mind. "My dog's name is Max" today, "actually it's Milo" tomorrow. Both sit in memory. At query time, the retriever returns whichever one scores higher, and the agent confidently contradicts itself. AMB v2.3 injects this class of <em>contradictory fact</em> daily across a simulated ninety-day horizon and measures which memory systems resolve the contradiction &mdash; and which drown in it.
     </p>
 
     <div class="hero-numbers">
@@ -371,7 +371,7 @@
         </p>
       </div>
       <blockquote class="bench-claim">
-        By day 14, the second wave of contradictions has landed. Retrieval-only memory drops from <strong>70%</strong> top-1 to <strong>49%</strong> and never recovers. Supersede-aware consolidation holds at <strong>99.2%</strong> and stays there through day 90. Every context-dump and word-overlap baseline sits at <strong>0.0%</strong> from day 0 to day 90 — they never resolve a single contradiction.
+        By day 14, two weeks of daily contradictions have accumulated in the index. Retrieval-only memory drops from <strong>70%</strong> top-1 to <strong>49%</strong> and never recovers &mdash; the old facts outweigh the new ones at retrieval time. Supersede-aware consolidation archives the old fact when a new one contradicts it, and holds at <strong>99.2%</strong> through day 90. Every context-dump and word-overlap baseline sits at <strong>0.0%</strong> from day 0 onward &mdash; they never resolve a single contradiction.
       </blockquote>
     </div>
 
