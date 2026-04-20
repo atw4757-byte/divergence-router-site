@@ -109,7 +109,48 @@
     .hero-num-val.accent { color: var(--accent-dk); }
     .hero-num-label { font-family: var(--mono); font-size: 11px; color: var(--ink-muted); letter-spacing: .08em; text-transform: uppercase; }
 
-    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 72px; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 32px; }
+
+    .install {
+      margin: 0 0 56px;
+      background: var(--ink-strong); color: var(--bg);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      box-shadow: 0 14px 40px rgba(61,57,41,.12);
+    }
+    .install-head {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .install-label {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(250,247,240,.55);
+    }
+    .install-tabs { display: flex; gap: 4px; }
+    .install-tab {
+      font-family: var(--mono); font-size: 11px; letter-spacing: .08em;
+      background: transparent; border: 1px solid rgba(250,247,240,.18);
+      color: rgba(250,247,240,.7); padding: 5px 11px; border-radius: 4px;
+      cursor: pointer; text-transform: uppercase; transition: all .12s ease;
+    }
+    .install-tab:hover { color: var(--bg); border-color: rgba(250,247,240,.4); }
+    .install-tab.active {
+      background: var(--accent); border-color: var(--accent); color: var(--bg);
+    }
+    .install-cmd {
+      font-family: var(--mono); font-size: 15px; line-height: 1.5;
+      color: var(--bg); padding: 2px 0; overflow-x: auto; white-space: nowrap;
+    }
+    .install-cmd .prompt { color: rgba(250,247,240,.4); user-select: none; }
+    .install-cmd .flag { color: #e6a87a; }
+    .install-cmd[hidden] { display: none; }
+    .install-foot {
+      font-family: var(--mono); font-size: 11px; color: rgba(250,247,240,.5);
+      margin-top: 12px; letter-spacing: .04em;
+    }
+    @media (max-width: 540px) {
+      .install-cmd { font-size: 13px; }
+    }
     .btn {
       display: inline-flex; align-items: center; gap: 8px;
       font-family: var(--sans); font-size: 15px; font-weight: 600;
@@ -290,6 +331,23 @@
     <div class="cta-row">
       <a href="#benchmark" class="btn btn-primary">See the benchmark</a>
       <a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+    </div>
+
+    <div class="install reveal" role="region" aria-label="Install agent-memory-core">
+      <div class="install-head">
+        <span class="install-label">Install</span>
+        <div class="install-tabs" role="tablist">
+          <button type="button" class="install-tab active" data-target="cmd-pip" role="tab" aria-selected="true">pip</button>
+          <button type="button" class="install-tab" data-target="cmd-brew" role="tab" aria-selected="false">macOS · brew</button>
+          <button type="button" class="install-tab" data-target="cmd-uv" role="tab" aria-selected="false">uv</button>
+          <button type="button" class="install-tab" data-target="cmd-docker" role="tab" aria-selected="false">Docker</button>
+        </div>
+      </div>
+      <div class="install-cmd" id="cmd-pip" role="tabpanel"><span class="prompt">$ </span>pip install agent-memory-core</div>
+      <div class="install-cmd" id="cmd-brew" role="tabpanel" hidden><span class="prompt">$ </span>brew install atw4757-byte/tap/agent-memory-core</div>
+      <div class="install-cmd" id="cmd-uv" role="tabpanel" hidden><span class="prompt">$ </span>uv add agent-memory-core</div>
+      <div class="install-cmd" id="cmd-docker" role="tabpanel" hidden><span class="prompt">$ </span>docker run <span class="flag">--rm</span> ghcr.io/atw4757-byte/agent-memory-core:latest</div>
+      <div class="install-foot">Apache-2.0 · Python 3.10+ · Linux &amp; macOS (arm64/x86_64)</div>
     </div>
 
     <figure class="hero-chart reveal">
@@ -487,6 +545,21 @@
     });
   }, { threshold: 0.1, rootMargin: "0px 0px -32px 0px" });
   document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+
+  // Install tabs
+  document.querySelectorAll(".install-tab").forEach(tab => {
+    tab.addEventListener("click", () => {
+      const group = tab.closest(".install");
+      group.querySelectorAll(".install-tab").forEach(t => {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      group.querySelectorAll(".install-cmd").forEach(c => c.hidden = true);
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+      document.getElementById(tab.dataset.target).hidden = false;
+    });
+  });
 </script>
 
 </body>
