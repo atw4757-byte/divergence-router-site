@@ -1,17 +1,25 @@
 {
-  "updated": "2026-04-19T18:45:00Z",
-  "prompts": 80516,
-  "inferences": 332290,
-  "shards": 2444,
+  "updated": "2026-04-21T16:16:00Z",
+  "prompts": 107381,
+  "inferences": 463216,
+  "shards": 3190,
   "nodes": 4,
   "categories": 8,
-  "high_divergence": 23534,
-  "high_div_pct": 29.23,
+  "high_divergence": 31112,
+  "high_div_pct": 28.97,
   "throughput_24h": 17519,
   "throughput_24h_human": "~17.5k",
   "schema": "v2.1",
-  "models_current": 7,
+  "models_current": 18,
   "models_onboarding_90d": 15,
   "models_target_12mo": 50,
-  "note": "prompts/shards/throughput refresh live from the vault; inferences scale proportionally to the last full daily analysis (309,398 @ 74,985 prompts). Model-count targets are directional, not capped — hardware expands with demand."
+  "headline_insight": "Open models agree on logic, diverge on judgment",
+  "judgment_vs_logic": {
+    "ethics_high_div_pct": 64.8,
+    "persuasion_high_div_pct": 47.99,
+    "meta_high_div_pct": 43.84,
+    "reasoning_high_div_pct": 2.94,
+    "emotional_high_div_pct": 0.01
+  },
+  "note": "prompts/shards/throughput refresh live from the vault; inferences scale from the Apr 21 full analysis (463,216 runs across 18 distinct open-source models, 135,678 errored, 28.97% high-divergence). Model-count targets are directional, not capped."
 }
