@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Divergence Router — route prompts to the right open-source model based on 74,985 measured model disagreements. Ethics prompts need frontier models. Reasoning prompts don't. We measured it.">
+  <meta name="description" content="Divergence Router — open models agree on logic, diverge on judgment. 107,381 measured prompts across 18 open-source LLMs. Ethics: 64.8% disagreement. Reasoning: 2.94%. Route by the data.">
   <meta property="og:title" content="Divergence Router — Route by measured disagreement, not guesswork">
-  <meta property="og:description" content="74,985 prompts. 309,398 inferences. 22k high-divergence prompts. The empirical router for open-source LLMs.">
+  <meta property="og:description" content="107,381 prompts. 463,216 inferences. 18 open-source models. Ethics prompts diverge 64.8% of the time; reasoning, 2.94%. Route by the data.">
   <meta property="og:image" content="images/performance-over-time.png">
   <title>Divergence Router — Route by measured disagreement</title>
 
@@ -256,20 +256,20 @@
 <!-- ─── Hero ─────────────────────────────────────────── -->
 <section id="hero">
   <div class="container">
-    <div class="hero-eyebrow">Pipeline live · 4 nodes · <span data-stat="shards">2,485</span> shards and growing</div>
+    <div class="hero-eyebrow">Pipeline live · 4 nodes · <span data-stat="shards">3,190</span> shards and growing</div>
     <h1 class="hero-headline">
-      Open-source models disagree.<br>
-      We measured it. Now you can <em>route by it</em>.
+      Open models agree on logic.<br>
+      They <em>diverge on judgment</em>.
     </h1>
     <p class="hero-sub">
-      Every AI team quietly pays frontier prices for prompts where a 7B open model would have been identical. And every team quietly ships a cheap model into the 30% of prompts where model choice actually changes the answer. We built the empirical data — and we add to it every fifteen minutes.
+      Across 107,381 measured prompts, ethics prompts produced materially different answers <strong>64.8% of the time</strong>; reasoning prompts, <strong>2.94%</strong>. The biggest routing ROI isn't "find the smartest model" — it's "detect when judgment and policy boundaries matter." We built the empirical data — and we add to it every fifteen minutes.
     </p>
 
     <div class="hero-stats reveal-stagger">
-      <div class="hero-stat"><div class="hero-stat-num" data-stat="prompts">74,985</div><div class="hero-stat-label">prompts measured</div></div>
-      <div class="hero-stat"><div class="hero-stat-num" data-stat="inferences">309,398</div><div class="hero-stat-label">model inferences</div></div>
-      <div class="hero-stat"><div class="hero-stat-num" data-stat="high_div_pct">29.23%</div><div class="hero-stat-label">high-divergence</div></div>
-      <div class="hero-stat"><div class="hero-stat-num" data-stat="nodes">4</div><div class="hero-stat-label">continuous nodes</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="prompts">107,381</div><div class="hero-stat-label">prompts measured</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="inferences">463,216</div><div class="hero-stat-label">model inferences</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="high_div_pct">28.97%</div><div class="hero-stat-label">high-divergence</div></div>
+      <div class="hero-stat"><div class="hero-stat-num" data-stat="models_current">18</div><div class="hero-stat-label">open models measured</div></div>
     </div>
 
     <div class="cta-row">
@@ -294,7 +294,7 @@
         <div class="problem-card-system">Pattern 1 · overpay</div>
         <div class="problem-card-title">Convergent prompts</div>
         <div class="problem-card-body">
-          On <strong>reasoning</strong> and <strong>emotional</strong> prompts, open 7B models land within measurement noise of frontier models (mean divergence 0.14 and 0.17 respectively, &lt;4% high-div). You are paying $10/M tokens for an answer a $0.10/M model would have produced. Route these to open-source. Cost cut: 80-95%.
+          On <strong>reasoning</strong> and <strong>emotional</strong> prompts, open 7B models converge within measurement noise of each other (mean divergence 0.138 and 0.177, &lt;3% high-div). You are paying $10/M tokens for an answer a $0.10/M model would have produced. Route these to open-source. Cost cut: 80-95%.
         </div>
       </div>
 
@@ -302,7 +302,7 @@
         <div class="problem-card-system">Pattern 2 · hidden risk</div>
         <div class="problem-card-title">Divergent prompts</div>
         <div class="problem-card-body">
-          On <strong>ethics</strong> and <strong>persuasion</strong> prompts, models disagree <strong>50–62% of the time</strong>. Which model answers materially changes what your user sees. Route these with care — ideally to an ensemble or frontier model, and log the divergence for review. This is where compliance exposure lives.
+          On <strong>ethics</strong> and <strong>persuasion</strong> prompts, models disagree <strong>48–65% of the time</strong>. Which model answers materially changes what your user sees. Route these with care — ideally to an ensemble or frontier model, and log the divergence for review. This is where compliance exposure lives.
         </div>
       </div>
 
@@ -466,52 +466,52 @@
         <tbody>
           <tr class="row-highlight">
             <td>Ethics</td>
-            <td>10,628</td>
-            <td class="hi">0.513</td>
-            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:51%;"></div></div></div></td>
-            <td class="hi">62.14%</td>
+            <td>15,266</td>
+            <td class="hi">0.527</td>
+            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:53%;"></div></div></div></td>
+            <td class="hi">64.80%</td>
           </tr>
           <tr>
             <td>Persuasion</td>
-            <td>10,613</td>
-            <td class="hi">0.411</td>
+            <td>15,243</td>
+            <td class="hi">0.415</td>
             <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:41%;"></div></div></div></td>
-            <td class="hi">49.58%</td>
+            <td class="hi">47.99%</td>
           </tr>
           <tr>
             <td>Meta (self-reflection)</td>
-            <td>10,640</td>
-            <td>0.424</td>
-            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:42%;"></div></div></div></td>
-            <td>42.19%</td>
-          </tr>
-          <tr>
-            <td>Factual</td>
-            <td>10,622</td>
-            <td>0.335</td>
-            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:33%;"></div></div></div></td>
-            <td>18.87%</td>
+            <td>15,270</td>
+            <td>0.432</td>
+            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:43%;"></div></div></div></td>
+            <td>43.84%</td>
           </tr>
           <tr>
             <td>Adversarial</td>
-            <td>10,646</td>
-            <td>0.326</td>
+            <td>15,292</td>
+            <td>0.329</td>
             <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:33%;"></div></div></div></td>
-            <td>28.24%</td>
+            <td>27.60%</td>
+          </tr>
+          <tr>
+            <td>Factual</td>
+            <td>15,222</td>
+            <td>0.318</td>
+            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:32%;"></div></div></div></td>
+            <td>15.70%</td>
           </tr>
           <tr>
             <td>Emotional</td>
-            <td>10,633</td>
-            <td class="lo">0.171</td>
-            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:17%;"></div></div></div></td>
+            <td>15,271</td>
+            <td class="lo">0.177</td>
+            <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:18%;"></div></div></div></td>
             <td class="lo">0.01%</td>
           </tr>
           <tr>
             <td>Reasoning</td>
-            <td>10,648</td>
-            <td class="best">0.144</td>
+            <td>15,262</td>
+            <td class="best">0.138</td>
             <td><div class="div-bar-wrap"><div class="div-bar"><div class="div-bar-fill" style="width:14%;"></div></div></div></td>
-            <td class="lo">3.79%</td>
+            <td class="lo">2.94%</td>
           </tr>
         </tbody>
       </table>
@@ -522,7 +522,7 @@
         <div class="problem-card-system">Implication 1</div>
         <div class="problem-card-title">Reasoning is a commodity.</div>
         <div class="problem-card-body">
-          The most counter-intuitive finding in the corpus. Across 10,648 reasoning prompts, open-source models converge to within 14% mean divergence — the lowest of any category. Chain-of-thought is broadly solved at the 7B scale. <strong>Stop paying frontier prices for arithmetic and multi-step deduction.</strong>
+          The most counter-intuitive finding in the corpus. Across 15,262 reasoning prompts, open-source 7B–9B models converge to 0.138 mean divergence — the lowest of any category, with only 2.94% of prompts crossing the high-divergence threshold. Chain-of-thought is broadly <em>converged</em> at this scale. <strong>Stop paying frontier prices for arithmetic and multi-step deduction.</strong> (Convergence is not a correctness guarantee — validate against ground truth before committing a production route. Methodology note.)
         </div>
       </div>
 
@@ -530,7 +530,7 @@
         <div class="problem-card-system">Implication 2</div>
         <div class="problem-card-title">Ethics is where model choice matters.</div>
         <div class="problem-card-body">
-          62% of ethics prompts produce materially different answers depending on model. This is the highest-leverage routing domain — compliance, HR, legal, content moderation. If you're shipping a single model into ethics-adjacent use cases, you're exposing yourself to whatever bias that model baked in. <strong>Route with ensemble + audit.</strong>
+          64.8% of ethics prompts produce materially different answers depending on model — across 15,266 measured. This is the highest-leverage routing domain: compliance, HR, legal, content moderation. If you're shipping a single model into ethics-adjacent use cases, you're exposing yourself to whatever moral priors that model baked in. <strong>Route with ensemble + audit.</strong>
         </div>
       </div>
 
@@ -538,7 +538,7 @@
         <div class="problem-card-system">Implication 3</div>
         <div class="problem-card-title">Emotional responses all converge to hedged therapy-speak.</div>
         <div class="problem-card-body">
-          Across 10,633 emotional prompts, divergence is 0.17 and high-div share is 0.01%. Every model produces the same RLHF-shaped empathetic hedge. This tells you the empathy layer is a commodity and the defensible moat has to come from memory + adaptation over time, not single-shot empathy. <strong>Don't pay a premium for "emotional intelligence" on its own.</strong>
+          Across 15,271 emotional prompts, divergence is 0.177 and high-div share is 0.01% — near-perfect convergence. Every model produces the same RLHF-shaped empathetic hedge. The empathy layer is a commodity; the defensible moat has to come from memory + adaptation over time, not single-shot empathy. <strong>Don't pay a premium for "emotional intelligence" on its own.</strong>
         </div>
       </div>
     </div>
@@ -563,7 +563,7 @@
         <div class="product-tag">Product 1 · Available now</div>
         <div class="product-title">Divergence Dataset</div>
         <div class="product-desc">
-          74,985 prompts × full multi-model response traces, scored for pairwise divergence across 8 categories. Schema v2.1. Refreshes daily. For alignment researchers, RLHF data teams, and anyone building routing or confidence-calibration infrastructure on open-source LLMs.
+          107,381 prompts × full multi-model response traces across 18 open-source models, scored for pairwise divergence across 8 categories. Schema v2.1. Refreshes daily. For alignment researchers, RLHF data teams, and anyone building routing or confidence-calibration infrastructure on open-source LLMs.
         </div>
         <ul class="product-bullets">
           <li>Full prompt + multi-model responses + divergence scores</li>
@@ -591,14 +591,14 @@
 
       <div class="product-card">
         <div class="product-tag">Companion product</div>
-        <div class="product-title">agent-memory-core</div>
+        <div class="product-title">archon-memory-core</div>
         <div class="product-desc">
           The memory layer for long-horizon agents. Supersede-aware consolidation, nightly compression, entity-graph retrieval. Open source, Apache 2.0. Runs local-first. AMB v2.3 benchmark: 99.2% top-1 accuracy at 250 queries × 2,300 confusers — every context-dump and word-overlap baseline scores 0.0% top-1 at that scale.
         </div>
         <ul class="product-bullets">
           <li>Supersede-aware consolidation — contradictions resolved</li>
           <li>AMB v2.3 published benchmark (250 queries, 3 seeds)</li>
-          <li>Apache 2.0, <code style="font-family:var(--mono);font-size:12px;color:var(--blue);">pip install agent-memory-core</code></li>
+          <li>Apache 2.0, <code style="font-family:var(--mono);font-size:12px;color:var(--blue);">pip install archon-memory-core</code></li>
           <li>Ships with its own eval harness</li>
         </ul>
         <div class="product-status"><a href="/amc/">See benchmark →</a></div>
