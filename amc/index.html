@@ -4,10 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Open-source memory layer for agents that resolves contradictions instead of compounding them. AMB v2.3: 99.2% top-1 vs 0% for every non-retriever baseline at 250-query scale.">
-  <meta property="og:title" content="agent-memory-core — resolves contradictions, doesn't compound them">
+  <meta property="og:title" content="archon-memory-core — resolves contradictions, doesn't compound them">
   <meta property="og:description" content="Open-source memory layer for agents. AMB v2.3 preregistered benchmark: 99.2% top-1 vs 0% for every non-retriever baseline. pip install archon-memory-core.">
   <meta property="og:image" content="/images/amb-v23-og.png?v=20260420a">
-  <title>agent-memory-core — open-source memory layer for agents</title>
+  <title>archon-memory-core — open-source memory layer for agents</title>
 
   <style>
     :root {
@@ -297,14 +297,14 @@
   <div class="nav-inner">
     <a href="/amc/" class="nav-brand">
       <span class="nav-mark">a</span>
-      <span>agent-memory-core</span>
+      <span>archon-memory-core</span>
     </a>
     <ul class="nav-links">
       <li><a href="#benchmark">Benchmark</a></li>
       <li><a href="#how">How it works</a></li>
       <li><a href="#submit">Submit</a></li>
       <li><a href="/">Divergence Router</a></li>
-      <li><a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
+      <li><a href="https://github.com/atw4757-byte/archon-memory-core" target="_blank" rel="noopener" class="nav-cta">GitHub →</a></li>
     </ul>
   </div>
 </nav>
@@ -339,10 +339,10 @@
 
     <div class="cta-row">
       <a href="#benchmark" class="btn btn-primary">See the benchmark</a>
-      <a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://github.com/atw4757-byte/archon-memory-core" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
     </div>
 
-    <div class="install reveal" role="region" aria-label="Install agent-memory-core">
+    <div class="install reveal" role="region" aria-label="Install archon-memory-core">
       <div class="install-head">
         <span class="install-label">Install</span>
         <div class="install-tabs" role="tablist">
@@ -353,14 +353,14 @@
         </div>
       </div>
       <div class="install-cmd" id="cmd-pip" role="tabpanel"><span class="prompt">$ </span>pip install archon-memory-core</div>
-      <div class="install-cmd" id="cmd-brew" role="tabpanel" hidden><span class="prompt">$ </span>brew install atw4757-byte/tap/agent-memory-core</div>
+      <div class="install-cmd" id="cmd-brew" role="tabpanel" hidden><span class="prompt">$ </span>brew install atw4757-byte/tap/archon-memory-core</div>
       <div class="install-cmd" id="cmd-uv" role="tabpanel" hidden><span class="prompt">$ </span>uv add archon-memory-core</div>
-      <div class="install-cmd" id="cmd-docker" role="tabpanel" hidden><span class="prompt">$ </span>docker run <span class="flag">--rm</span> ghcr.io/atw4757-byte/agent-memory-core:latest</div>
+      <div class="install-cmd" id="cmd-docker" role="tabpanel" hidden><span class="prompt">$ </span>docker run <span class="flag">--rm</span> ghcr.io/atw4757-byte/archon-memory-core:latest</div>
       <div class="install-foot">Apache-2.0 · Python 3.10+ · Linux &amp; macOS (arm64/x86_64)</div>
     </div>
 
     <figure class="hero-chart reveal">
-      <img src="/images/amb-v23-degradation.png?v=20260420a" alt="AMB v2.3 — Memory accuracy across a simulated 90-day horizon. agent-memory-core with consolidation holds at 99.2%; retrieval-only collapses to 49.2% after 13 days of daily confuser injection; LangChain 32,000-token buffer has the answer in context but its top-ranked chunk is noise — 0.0% top-1 throughout; naive word-overlap flat at 0%.">
+      <img src="/images/amb-v23-degradation.png?v=20260420a" alt="AMB v2.3 — Memory accuracy across a simulated 90-day horizon. archon-memory-core with consolidation holds at 99.2%; retrieval-only collapses to 49.2% after 13 days of daily confuser injection; LangChain 32,000-token buffer has the answer in context but its top-ranked chunk is noise — 0.0% top-1 throughout; naive word-overlap flat at 0%.">
       <figcaption class="hero-chart-caption">
         Top-1 accuracy over 90 simulated days · averaged across 3 independent runs · 250 queries × 2,300 confusers injected daily · Mem0 adapter pending
       </figcaption>
@@ -398,7 +398,7 @@
         </thead>
         <tbody>
           <tr class="highlight">
-            <td>agent-memory-core</td>
+            <td>archon-memory-core</td>
             <td>tuned · consolidator</td>
             <td class="mono-num best">0.807</td>
             <td class="mono-num best">99.2%</td>
@@ -406,7 +406,7 @@
             <td class="mono-num">0.064</td>
           </tr>
           <tr>
-            <td>agent-memory-core</td>
+            <td>archon-memory-core</td>
             <td>stock · retrieval only</td>
             <td class="mono-num mid">0.658</td>
             <td class="mono-num mid">49.2%</td>
@@ -442,7 +442,7 @@
     </div>
 
     <p class="bench-footnote">
-      Mean across seeds 42/43/44 · std 0.000 on every cell (deterministic corpus structure). Signal is flat across 60× scale range (+0.61 → +0.525 lift on <code>quality_v2.3</code>). Full methodology, preregistered protocol, and per-seed results: <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/amb_v2/results/v2.3/large/STATUS.md" target="_blank" rel="noopener">v2.3 large-scale STATUS</a>.
+      Mean across seeds 42/43/44 · std 0.000 on every cell (deterministic corpus structure). Signal is flat across 60× scale range (+0.61 → +0.525 lift on <code>quality_v2.3</code>). Full methodology, preregistered protocol, and per-seed results: <a href="https://github.com/atw4757-byte/archon-memory-core/blob/main/benchmark/amb_v2/results/v2.3/large/STATUS.md" target="_blank" rel="noopener">v2.3 large-scale STATUS</a>.
     </p>
   </div>
 </section>
@@ -522,7 +522,7 @@
 
         <div class="form-actions">
           <button type="submit" class="btn btn-primary">Submit to AMB</button>
-          <a href="https://github.com/atw4757-byte/agent-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener" class="btn btn-ghost">Submission spec</a>
+          <a href="https://github.com/atw4757-byte/archon-memory-core/blob/main/benchmark/LEADERBOARD.md" target="_blank" rel="noopener" class="btn btn-ghost">Submission spec</a>
           <span class="meta">We reply within 48 hours.</span>
         </div>
       </form>
@@ -535,8 +535,8 @@
     <div class="footer-inner">
       <div class="footer-brand">Memory should endure, not decay.</div>
       <div class="footer-links">
-        <a href="https://github.com/atw4757-byte/agent-memory-core" target="_blank" rel="noopener">GitHub</a>
-        <a href="https://github.com/atw4757-byte/agent-memory-core/tree/main/benchmark" target="_blank" rel="noopener">Benchmark</a>
+        <a href="https://github.com/atw4757-byte/archon-memory-core" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/atw4757-byte/archon-memory-core/tree/main/benchmark" target="_blank" rel="noopener">Benchmark</a>
         <a href="/">Divergence Router</a>
         <span class="footer-license">Apache 2.0</span>
       </div>
