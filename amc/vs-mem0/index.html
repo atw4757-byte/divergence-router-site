@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>archon-memory-core vs Mem0: Agent Memory Library Comparison</title>
+  <meta name="description" content="Direct comparison of archon-memory-core and Mem0 for LLM agent memory. Both are Apache 2.0 libraries. Differences: contradiction resolution, benchmarks, deployment model.">
+  <link rel="canonical" href="https://divergencerouter.com/amc/vs-mem0/">
+  <meta property="og:title" content="archon-memory-core vs Mem0 — honest comparison">
+  <meta property="og:description" content="Both are memory libraries for LLM agents. Here's what actually differs in practice.">
+  <meta property="og:url" content="https://divergencerouter.com/amc/vs-mem0/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/amc/_compare-template.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is archon-memory-core a fork of Mem0?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. The two projects have different designs. Mem0 uses an LLM to extract and reconcile memories at write time. archon-memory-core resolves contradictions at retrieval time using persistence class and priority scoring."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which one handles contradictions better?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Mem0 tries to reconcile at write time by asking an LLM whether the new fact updates, contradicts, or adds to existing ones. archon-memory-core keeps both and lets the retriever score them. The AMB v2.3 benchmark measures exactly this scenario."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the deployment differences?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Both install via pip. Mem0 has an optional hosted cloud tier. archon-memory-core is local-first with SQLite or Postgres — no hosted component."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is faster?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "archon-memory-core avoids LLM calls on the write path, so writes are roughly an order of magnitude cheaper in both latency and dollars. Retrieval latency is comparable."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav"><div class="container">
+    <a href="/amc/">archon-memory-core</a>
+    <span class="sep">/</span>
+    <a href="/amc/">Comparisons</a>
+    <span class="sep">/</span>
+    <span>vs Mem0</span>
+  </div></nav>
+
+  <article><div class="container">
+    <h1>archon-memory-core vs Mem0</h1>
+    <p class="lede">Mem0 is the closest competitor to archon-memory-core — both are Apache 2.0 Python libraries that solve durable memory for LLM agents. The real difference is <em>where</em> contradiction resolution happens: write-time (Mem0) vs retrieval-time (archon-memory-core).</p>
+
+    <div class="verdict">
+      <strong>Short answer:</strong> If you want an LLM to actively merge and reconcile memories as they're written, Mem0 is mature and battle-tested. If you want write-time to be cheap and deterministic and contradiction handling to live in the retriever, use archon-memory-core.
+    </div>
+
+    <h2>Core design difference</h2>
+    <p><strong>Mem0</strong> calls an LLM on the write path. When a new memory arrives, Mem0 asks a model whether it's new information, an update to an existing fact, a contradiction to be replaced, or a duplicate to drop. This produces a clean memory graph but ties every write to an LLM call.</p>
+    <p><strong>archon-memory-core</strong> stores the write verbatim with a <em>persistence class</em> (ephemeral, session, long-term, canonical) and optional priority. Contradictions are allowed to coexist. The retriever uses persistence class, priority, and recency to score, so the "right" memory wins at query time without a model judging correctness up front.</p>
+
+    <h2>Feature comparison</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>Mem0</th><th>archon-memory-core</th></tr></thead>
+      <tbody>
+        <tr><td>License</td><td>Apache 2.0</td><td>Apache 2.0</td></tr>
+        <tr><td>Install</td><td><code>pip install mem0ai</code></td><td><code>pip install archon-memory-core</code></td></tr>
+        <tr><td>Write-path LLM call</td><td>Yes (required)</td><td>No</td></tr>
+        <tr><td>Contradiction handling</td><td>Reconciled at write by LLM</td><td>Scored at retrieval</td></tr>
+        <tr><td>Hosted tier</td><td>Yes (mem0.ai cloud)</td><td>No — local-first</td></tr>
+        <tr><td>Storage backend</td><td>Vector + graph store</td><td>SQLite / Postgres + embeddings</td></tr>
+        <tr><td>Benchmarks</td><td>LoCoMo, company-reported</td><td>AMB v2.3 preregistered, 99.2% top-1</td></tr>
+        <tr><td>Determinism</td><td>LLM call adds variance</td><td>Deterministic writes</td></tr>
+      </tbody>
+    </table>
+
+    <h2>When to pick Mem0</h2>
+    <ul>
+      <li>You want the memory store to actively curate itself (merge, dedupe, supersede) via an LLM.</li>
+      <li>You're comfortable with an LLM call on every write and the latency + cost that implies.</li>
+      <li>You want a managed cloud option.</li>
+    </ul>
+
+    <h2>When to pick archon-memory-core</h2>
+    <ul>
+      <li>You want cheap, fast, deterministic writes.</li>
+      <li>You want contradiction resolution to be an explicit, auditable retrieval-time behavior.</li>
+      <li>You want a local-first library with zero hosted dependency.</li>
+      <li>You want to run the AMB v2.3 benchmark yourself and see the 99.2% top-1 contradiction retrieval number reproduce.</li>
+    </ul>
+
+    <h2>What the benchmarks actually measure</h2>
+    <p>Mem0's public benchmarks focus on LoCoMo-style long-context retrieval. AMB v2.3 was designed specifically to probe contradictions: "My dog's name is Rex" followed weeks later by "My dog's name is Max." The test asks which name the retriever surfaces when the user asks. AMC scored 99.2% top-1 on the canonical fact. The point isn't that AMC beats Mem0 — neither team has run the other's benchmark on a fair harness yet — it's that <em>the question has to be asked explicitly</em>, and AMB exists to do that.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">Is archon-memory-core a fork of Mem0?</div>
+      <div class="faq-a">No — different designs. Mem0 reconciles at write time with an LLM. archon-memory-core keeps conflicting facts and resolves at retrieval using persistence class and priority.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which handles contradictions better?</div>
+      <div class="faq-a">Depends on whether you want reconciliation to be an LLM judgment (Mem0) or a deterministic retrieval property (archon-memory-core). AMB v2.3 is the preregistered benchmark that measures this directly.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What are the deployment differences?</div>
+      <div class="faq-a">Both install via pip. Mem0 has an optional cloud tier. archon-memory-core is local-first with SQLite or Postgres.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which is cheaper to operate?</div>
+      <div class="faq-a">archon-memory-core — no LLM on the write path means no per-write model cost.</div>
+    </div>
+
+    <a class="cta" href="https://github.com/atw4757-byte/archon-memory-core">View archon-memory-core on GitHub</a>
+  </div></article>
+
+  <footer><div class="container">
+    <p>archon-memory-core is Apache 2.0 licensed. Benchmarks preregistered on AMB v2.3.</p>
+  </div></footer>
+</body>
+</html>

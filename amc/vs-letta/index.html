@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>archon-memory-core vs Letta: Which Agent Memory System Should You Use?</title>
+  <meta name="description" content="Honest comparison of archon-memory-core and Letta (MemGPT). Letta is a full agent runtime; archon-memory-core is a memory library. They're compatible — here's how to choose.">
+  <link rel="canonical" href="https://divergencerouter.com/amc/vs-letta/">
+  <meta property="og:title" content="archon-memory-core vs Letta — agent memory comparison">
+  <meta property="og:description" content="Letta is a runtime, archon-memory-core is a library. When to use each, and how to combine them.">
+  <meta property="og:url" content="https://divergencerouter.com/amc/vs-letta/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/amc/_compare-template.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is Letta a replacement for archon-memory-core?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Letta is a full agent runtime that happens to include memory. archon-memory-core is a standalone memory library you can plug into any framework. They operate at different layers of the stack."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use archon-memory-core with Letta?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Expose archon-memory-core as a tool or sidecar service and have Letta call it for long-term fact storage, while Letta's native memory handles working context."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which one is better for contradiction handling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "archon-memory-core resolves contradictions explicitly at retrieval time using persistence class and priority. Letta relies on its core memory block being rewritten by the agent, which can compound errors if the agent misjudges a conflict."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the setup cost difference?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "archon-memory-core: pip install, one import. Letta: Docker container, PostgreSQL, agent server, and a choice of framework adapter. Letta gives you more, but you pay for it in ops surface."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav"><div class="container">
+    <a href="/amc/">archon-memory-core</a>
+    <span class="sep">/</span>
+    <a href="/amc/">Comparisons</a>
+    <span class="sep">/</span>
+    <span>vs Letta</span>
+  </div></nav>
+
+  <article><div class="container">
+    <h1>archon-memory-core vs Letta</h1>
+    <p class="lede">Letta (formerly MemGPT) is a full agent runtime. archon-memory-core is a memory library. Most teams evaluating both are really asking "do I want a framework that includes memory, or memory I can plug into my own framework?"</p>
+
+    <div class="verdict">
+      <strong>Short answer:</strong> If you want a batteries-included agent server and are willing to adopt its abstractions, Letta is a solid pick. If you already have a framework (LangGraph, CrewAI, custom) and just need durable memory that resolves contradictions, use archon-memory-core. They <em>compose</em> — you don't have to choose.
+    </div>
+
+    <h2>What each one actually is</h2>
+    <p><strong>Letta</strong> is an agent runtime that descends from the MemGPT paper. It ships as a Docker-deployed server with PostgreSQL, a REST API, a Python SDK, and a UI. Memory is a first-class concept: core memory blocks edited by the agent, archival memory backed by a vector store, and a recall mechanism triggered by context pressure. You write agents against Letta's abstractions.</p>
+    <p><strong>archon-memory-core</strong> is a Python library. <code>pip install archon-memory-core</code>, import the client, call <code>write()</code> and <code>retrieve()</code>. It runs in-process against SQLite or your existing Postgres. There is no server, no runtime, no agent abstraction — just memory primitives with explicit persistence classes and contradiction resolution at retrieval.</p>
+
+    <h2>Feature comparison</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>Letta</th><th>archon-memory-core</th></tr></thead>
+      <tbody>
+        <tr><td>Install footprint</td><td>Docker + Postgres + server</td><td><code>pip install</code></td></tr>
+        <tr><td>License</td><td>Apache 2.0</td><td>Apache 2.0</td></tr>
+        <tr><td>Runtime scope</td><td>Full agent runtime</td><td>Memory library only</td></tr>
+        <tr><td>Contradiction handling</td><td>Agent rewrites core block</td><td>Retriever scores persistence + priority</td></tr>
+        <tr><td>Benchmarked retrieval</td><td>MemGPT paper (2023)</td><td>AMB v2.3 (99.2% top-1)</td></tr>
+        <tr><td>Framework coupling</td><td>Adopt Letta primitives</td><td>Framework-agnostic</td></tr>
+        <tr><td>Works with LangGraph / CrewAI / custom</td><td>Via adapter</td><td>Direct, any framework</td></tr>
+        <tr><td>Ops surface</td><td>Server to run</td><td>None (in-process)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>When to pick Letta</h2>
+    <ul>
+      <li>You don't have an agent framework yet and want one with opinionated defaults.</li>
+      <li>You want an out-of-the-box multi-agent server with a UI and REST endpoints.</li>
+      <li>Your team is comfortable operating a Postgres-backed service.</li>
+    </ul>
+
+    <h2>When to pick archon-memory-core</h2>
+    <ul>
+      <li>You already have a framework (LangGraph, CrewAI, Pydantic AI, something custom).</li>
+      <li>You want contradiction resolution as a <em>retrieval-time</em> property, not an agent instruction.</li>
+      <li>You don't want to run another server.</li>
+      <li>You care about the AMB v2.3 preregistered result (99.2% top-1 on contradiction retrieval).</li>
+    </ul>
+
+    <h2>Using them together</h2>
+    <p>Letta's core memory is great for the agent's working context (persona, current goals). archon-memory-core is great for the long tail of facts that need to survive, evolve, and sometimes contradict. Wire archon-memory-core as a tool Letta can call — keep Letta's runtime, add explicit contradiction handling underneath.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">Is Letta a replacement for archon-memory-core?</div>
+      <div class="faq-a">No. Letta is a full agent runtime that happens to include memory. archon-memory-core is a standalone memory library. Different layers of the stack.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I use archon-memory-core with Letta?</div>
+      <div class="faq-a">Yes. Expose it as a tool or sidecar and have Letta call it for durable fact storage, while Letta's native memory handles working context.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which handles contradictions better?</div>
+      <div class="faq-a">archon-memory-core resolves contradictions at retrieval using persistence class and priority. Letta relies on the agent to rewrite its core memory block — which compounds errors if the agent misjudges.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">What's the setup cost difference?</div>
+      <div class="faq-a">archon-memory-core: <code>pip install</code>, one import. Letta: Docker, Postgres, server, framework adapter.</div>
+    </div>
+
+    <a class="cta" href="https://github.com/atw4757-byte/archon-memory-core">View archon-memory-core on GitHub</a>
+  </div></article>
+
+  <footer><div class="container">
+    <p>archon-memory-core is Apache 2.0 licensed. Benchmarks preregistered on AMB v2.3.</p>
+  </div></footer>
+</body>
+</html>

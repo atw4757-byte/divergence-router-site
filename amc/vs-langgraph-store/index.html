@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>archon-memory-core vs LangGraph Store: Memory for LangChain Agents</title>
+  <meta name="description" content="LangGraph Store is LangChain's built-in memory primitive. archon-memory-core is a framework-agnostic memory library. How they differ and how to combine them.">
+  <link rel="canonical" href="https://divergencerouter.com/amc/vs-langgraph-store/">
+  <meta property="og:title" content="archon-memory-core vs LangGraph Store — agent memory comparison">
+  <meta property="og:description" content="Built-in LangChain memory vs framework-agnostic library. What each gives you.">
+  <meta property="og:url" content="https://divergencerouter.com/amc/vs-langgraph-store/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/amc/_compare-template.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does LangGraph Store do long-term memory?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes — LangGraph Store is a key-value store with namespaced scopes (user, thread, etc.) and optional vector search. It's a primitive you build on; retrieval policy is your responsibility."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need archon-memory-core if I'm using LangGraph?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not necessarily. If your memory is simple key-value with vector search, LangGraph Store is enough. If you need persistence classes, priority scoring, and contradiction resolution out of the box, archon-memory-core gives you those primitives."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can archon-memory-core be used as a LangGraph Store backend?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Indirectly — you can call archon-memory-core from inside a LangGraph node or tool. There isn't a drop-in BaseStore adapter yet, but the surface area is small enough to write one in an afternoon."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is better tested?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "LangGraph Store benefits from LangChain's user base. archon-memory-core ships with a preregistered benchmark (AMB v2.3) that measures contradiction retrieval directly — 99.2% top-1."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav"><div class="container">
+    <a href="/amc/">archon-memory-core</a>
+    <span class="sep">/</span>
+    <a href="/amc/">Comparisons</a>
+    <span class="sep">/</span>
+    <span>vs LangGraph Store</span>
+  </div></nav>
+
+  <article><div class="container">
+    <h1>archon-memory-core vs LangGraph Store</h1>
+    <p class="lede">LangGraph Store is LangChain's built-in memory primitive — a namespaced key-value store with optional vector search. archon-memory-core is a framework-agnostic memory library with opinionated contradiction handling. One is a primitive; the other is a policy.</p>
+
+    <div class="verdict">
+      <strong>Short answer:</strong> If you're deep in LangGraph and your memory is "save a blob, retrieve it later," LangGraph Store is already there. If you want persistence classes, priority scoring, and retrieval-time contradiction resolution without writing them yourself, use archon-memory-core — either standalone or called from a LangGraph node.
+    </div>
+
+    <h2>What each one actually is</h2>
+    <p><strong>LangGraph Store</strong> is a pluggable interface with an in-memory default and Postgres / SQLite implementations. You get <code>put</code>, <code>get</code>, <code>search</code> against namespaced scopes. Vector search is optional. It's a durable bag you fill however you like — the retrieval policy and conflict handling are up to you.</p>
+    <p><strong>archon-memory-core</strong> has a narrower API but makes opinionated decisions. Every memory has a <em>persistence class</em> (ephemeral, session, long-term, canonical) and an optional priority. Retrieval ranks by a combination of embedding similarity, persistence, and priority. Contradictions coexist in storage and get sorted at query time.</p>
+
+    <h2>Feature comparison</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>LangGraph Store</th><th>archon-memory-core</th></tr></thead>
+      <tbody>
+        <tr><td>License</td><td>MIT</td><td>Apache 2.0</td></tr>
+        <tr><td>Install</td><td>Part of LangGraph</td><td><code>pip install archon-memory-core</code></td></tr>
+        <tr><td>Framework coupling</td><td>Tightly integrated with LangGraph</td><td>Framework-agnostic</td></tr>
+        <tr><td>API shape</td><td>KV store (put / get / search)</td><td>Memory client (write / retrieve)</td></tr>
+        <tr><td>Persistence classes</td><td>Not built-in</td><td>Built-in (ephemeral → canonical)</td></tr>
+        <tr><td>Priority scoring</td><td>DIY</td><td>Built-in</td></tr>
+        <tr><td>Contradiction handling</td><td>DIY</td><td>Retrieval-time, deterministic</td></tr>
+        <tr><td>Benchmarks</td><td>None published specifically</td><td>AMB v2.3 (99.2% top-1)</td></tr>
+      </tbody>
+    </table>
+
+    <h2>When to pick LangGraph Store</h2>
+    <ul>
+      <li>You're already deep in LangGraph and want zero new dependencies.</li>
+      <li>Your memory is simple: save a JSON blob, look it up later, maybe vector search.</li>
+      <li>You want full control over what gets written and how it's retrieved.</li>
+    </ul>
+
+    <h2>When to pick archon-memory-core</h2>
+    <ul>
+      <li>You want persistence class and priority as first-class concepts instead of reinventing them.</li>
+      <li>You want contradiction resolution that doesn't require you to write ranking logic yourself.</li>
+      <li>You want something that works unchanged if you swap LangGraph for CrewAI, Pydantic AI, or a custom stack.</li>
+      <li>You care about the AMB v2.3 preregistered number (99.2% top-1 on contradiction retrieval).</li>
+    </ul>
+
+    <h2>Using them together</h2>
+    <p>LangGraph Store is great for checkpointing, thread state, and anything that wants LangGraph's graph-scoped namespacing. Call archon-memory-core from inside a node when you need durable user-level memory with contradiction handling. A tiny adapter that implements LangGraph's <code>BaseStore</code> on top of archon-memory-core is on the roadmap — until then, direct invocation from a node works fine.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">Does LangGraph Store do long-term memory?</div>
+      <div class="faq-a">Yes — it's a namespaced key-value store with optional vector search. Retrieval policy is your responsibility.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Do I need archon-memory-core if I'm using LangGraph?</div>
+      <div class="faq-a">Not if your memory is simple KV + vector. Yes if you want persistence classes, priority, and contradiction resolution without writing them yourself.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can archon-memory-core back LangGraph Store?</div>
+      <div class="faq-a">Indirectly today — call it from inside a node. A BaseStore adapter is on the roadmap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which is better tested?</div>
+      <div class="faq-a">LangGraph Store benefits from LangChain's user base. archon-memory-core ships with AMB v2.3, a preregistered benchmark measuring contradiction retrieval directly.</div>
+    </div>
+
+    <a class="cta" href="https://github.com/atw4757-byte/archon-memory-core">View archon-memory-core on GitHub</a>
+  </div></article>
+
+  <footer><div class="container">
+    <p>archon-memory-core is Apache 2.0 licensed. Benchmarks preregistered on AMB v2.3.</p>
+  </div></footer>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>archon-memory-core vs Zep: Which Memory System for Your Agent?</title>
+  <meta name="description" content="Zep is a temporal knowledge graph memory service. archon-memory-core is a retrieval-focused memory library. When to use each, and how they differ architecturally.">
+  <link rel="canonical" href="https://divergencerouter.com/amc/vs-zep/">
+  <meta property="og:title" content="archon-memory-core vs Zep — agent memory comparison">
+  <meta property="og:description" content="Temporal knowledge graph vs retrieval-time contradiction resolution. Here's how to choose.">
+  <meta property="og:url" content="https://divergencerouter.com/amc/vs-zep/">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="/amc/_compare-template.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does Zep do the same thing as archon-memory-core?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They overlap but diverge. Zep builds a temporal knowledge graph (Graphiti) and lets you query facts-as-of-time. archon-memory-core focuses on retrieval-time contradiction resolution using persistence class and priority."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Zep self-hostable?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zep's community edition is self-hostable and runs as a Postgres-backed server. Zep Cloud is a managed tier. archon-memory-core is an in-process library — there's no server component at all."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is better for temporal reasoning?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Zep. Its Graphiti engine is specifically designed for temporal knowledge graphs with valid-time and transaction-time. archon-memory-core has timestamps but doesn't model temporal queries as a first-class feature."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use them together?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Use Zep for temporal facts (employment history, event timelines) and archon-memory-core for user preferences and contradicting personal facts where persistence class matters more than time-of-validity."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <nav class="nav"><div class="container">
+    <a href="/amc/">archon-memory-core</a>
+    <span class="sep">/</span>
+    <a href="/amc/">Comparisons</a>
+    <span class="sep">/</span>
+    <span>vs Zep</span>
+  </div></nav>
+
+  <article><div class="container">
+    <h1>archon-memory-core vs Zep</h1>
+    <p class="lede">Zep is a temporal knowledge graph for LLM agents — backed by Graphiti, it models facts as nodes and edges with valid-time and transaction-time. archon-memory-core is a lighter retrieval library focused on contradiction resolution. Different tools for different shapes of memory.</p>
+
+    <div class="verdict">
+      <strong>Short answer:</strong> If your memory is fundamentally temporal — "what did the user believe last month vs this month" — Zep is purpose-built for that. If your memory is "what facts about this user should I surface now, and which of them supersede the others," archon-memory-core is lighter and faster.
+    </div>
+
+    <h2>Architectural difference</h2>
+    <p><strong>Zep</strong> runs as a Postgres-backed service. Ingested text is chunked, entities and relationships are extracted, and the result lands in a temporal knowledge graph. You query by natural language or by graph traversal, and Zep reasons about "as of time T." This is powerful — and ops-heavy. Community edition is self-hostable; Zep Cloud is managed.</p>
+    <p><strong>archon-memory-core</strong> is an in-process Python library. Memory is flat rows with persistence class, priority, and embedding. There is no entity extraction, no graph, no server. Contradictions aren't modeled as temporal edges — they're allowed to coexist and the retriever picks the winner based on persistence and priority.</p>
+
+    <h2>Feature comparison</h2>
+    <table>
+      <thead><tr><th>Capability</th><th>Zep</th><th>archon-memory-core</th></tr></thead>
+      <tbody>
+        <tr><td>License</td><td>Apache 2.0 (community)</td><td>Apache 2.0</td></tr>
+        <tr><td>Deployment</td><td>Postgres-backed server</td><td>In-process library</td></tr>
+        <tr><td>Data model</td><td>Temporal knowledge graph</td><td>Flat rows + embeddings</td></tr>
+        <tr><td>Entity extraction</td><td>Built-in (LLM-backed)</td><td>Out of scope</td></tr>
+        <tr><td>Temporal queries</td><td>First-class (valid-time, tx-time)</td><td>Timestamps only</td></tr>
+        <tr><td>Contradiction handling</td><td>New edges supersede old in graph</td><td>Retriever scores persistence + priority</td></tr>
+        <tr><td>Benchmark</td><td>DMR, LongMemEval</td><td>AMB v2.3 (99.2% top-1)</td></tr>
+        <tr><td>Install footprint</td><td>Docker + Postgres</td><td><code>pip install</code></td></tr>
+      </tbody>
+    </table>
+
+    <h2>When to pick Zep</h2>
+    <ul>
+      <li>You need time-travel queries: "what did the agent know about this user on March 1?"</li>
+      <li>Your memory is fundamentally relational — people, companies, events, roles.</li>
+      <li>You want entity extraction and graph construction handled for you.</li>
+      <li>You're okay running another Postgres-backed service.</li>
+    </ul>
+
+    <h2>When to pick archon-memory-core</h2>
+    <ul>
+      <li>Your memory is closer to "facts about the user" than "a knowledge graph of the world."</li>
+      <li>You want contradictions surfaced by ranking, not by graph supersession edges.</li>
+      <li>You don't want another service to deploy, monitor, and upgrade.</li>
+      <li>Retrieval latency matters and you don't want graph traversal on the hot path.</li>
+    </ul>
+
+    <h2>When to use both</h2>
+    <p>They aren't mutually exclusive. A real assistant might use Zep for the temporal world-model (organization charts, event timelines, longitudinal facts) and archon-memory-core for ephemeral and session-scoped facts that need rapid contradiction resolution without graph maintenance overhead.</p>
+
+    <h2>FAQ</h2>
+    <div class="faq-item">
+      <div class="faq-q">Does Zep do the same thing as archon-memory-core?</div>
+      <div class="faq-a">They overlap but diverge. Zep builds a temporal knowledge graph. archon-memory-core focuses on retrieval-time contradiction resolution using persistence class and priority.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Is Zep self-hostable?</div>
+      <div class="faq-a">Yes, community edition runs as a Postgres-backed server. archon-memory-core is in-process — no server at all.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Which is better for temporal reasoning?</div>
+      <div class="faq-a">Zep. Its Graphiti engine is purpose-built for temporal knowledge graphs with valid-time and transaction-time.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Can I use them together?</div>
+      <div class="faq-a">Yes. Zep for temporal facts, archon-memory-core for ranked user-scoped memory where persistence class matters more than time-of-validity.</div>
+    </div>
+
+    <a class="cta" href="https://github.com/atw4757-byte/archon-memory-core">View archon-memory-core on GitHub</a>
+  </div></article>
+
+  <footer><div class="container">
+    <p>archon-memory-core is Apache 2.0 licensed. Benchmarks preregistered on AMB v2.3.</p>
+  </div></footer>
+</body>
+</html>
