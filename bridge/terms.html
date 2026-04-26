@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bridge SMS Companion Service — Terms of Service.">
+  <title>Bridge — Terms of Service</title>
+  <style>
+    :root {
+      --bg: #0d1117; --bg-card: #161b22; --border: #30363d;
+      --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff;
+      --mono: "JetBrains Mono", Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; padding: 40px 20px;
+    }
+    main { max-width: 760px; margin: 0 auto; }
+    h1 { font-size: 32px; margin: 0 0 8px 0; }
+    h2 { font-size: 20px; margin: 32px 0 12px 0; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    h3 { font-size: 16px; margin: 20px 0 8px 0; }
+    p, li { color: var(--text); }
+    .meta { color: var(--muted); font-family: var(--mono); font-size: 13px; margin-bottom: 24px; }
+    a { color: var(--accent); }
+    code { background: var(--bg-card); padding: 2px 6px; border-radius: 4px; font-family: var(--mono); font-size: 13px; }
+    .footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+    .callout { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 12px 16px; border-radius: 4px; margin: 16px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Bridge — Terms of Service</h1>
+  <p class="meta">Effective 2026-04-25 · Sus.AI LLC · Roswell, GA</p>
+
+  <p>These Terms of Service ("Terms") govern your use of <strong>Bridge</strong>, an SMS-based daily check-in companion service operated by Sus.AI LLC ("we", "us", "Sus.AI"). By signing up as a Sponsor, or by replying <code>YES</code> to enroll as a Recipient, you agree to these Terms.</p>
+
+  <div class="callout">
+    <strong>The short version:</strong> Bridge is a friendly daily SMS for an aging family member, plus a digest for the family. It is <em>not</em> medical care, an emergency service, or a substitute for human contact. We do our best, but we make no guarantees, and we don't accept liability beyond what you've paid us.
+  </div>
+
+  <h2>1. Who can use Bridge</h2>
+
+  <ul>
+    <li><strong>Sponsor</strong> (the person paying): must be 18 or older, legally able to enter contracts, and have a good-faith relationship with the Recipient (typically an adult child enrolling a parent).</li>
+    <li><strong>Recipient</strong> (the person receiving SMS): must be a real person, must be reachable on a US mobile number, and must explicitly opt in by replying <code>YES</code> to our consent SMS.</li>
+    <li>Bridge is intended for adults aged 55 and older. We do not knowingly enroll minors.</li>
+  </ul>
+
+  <h2>2. Consent and the Recipient's right to stop</h2>
+
+  <ul>
+    <li>The Recipient must reply <code>YES</code> after Sponsor enrollment before Bridge will send any further messages.</li>
+    <li>The Recipient may text <code>STOP</code>, <code>END</code>, <code>QUIT</code>, <code>UNSUBSCRIBE</code>, or <code>CANCEL</code> at any time to immediately end all messaging. We will send one confirmation reply and then stop.</li>
+    <li>The Recipient's decision to stop is final and overrides the Sponsor's wishes. The Sponsor will be notified that the Recipient opted out.</li>
+    <li>Reply <code>HELP</code> or <code>INFO</code> for assistance.</li>
+  </ul>
+
+  <h2>3. What Bridge is — and is not</h2>
+
+  <p>Bridge sends a daily AI-generated SMS to the Recipient, listens to replies, summarizes the conversation in a digest for the Sponsor, and flags potential safety concerns (medical distress, scam attempts, signs of cognitive change).</p>
+
+  <p>Bridge is <strong>not</strong>:</p>
+  <ul>
+    <li>An emergency service. If you or the Recipient is in immediate danger, call <strong>911</strong>.</li>
+    <li>A medical, legal, or financial advisor. Bridge will explicitly defer to a doctor, lawyer, or family member on those topics, and you agree not to rely on it for any such advice.</li>
+    <li>A substitute for human contact. Bridge is designed to <em>increase</em> family contact (the "bridge-not-substitute" principle), not replace it.</li>
+    <li>A 24/7 monitoring service. Messages may be delayed by carrier networks, our infrastructure, or vendor outages.</li>
+  </ul>
+
+  <h2>4. Billing</h2>
+
+  <ul>
+    <li>Bridge costs <strong>$49 per family per month</strong>, billed in advance via Stripe.</li>
+    <li>The 14-day trial is free. Cancel any time during the trial and you will not be charged.</li>
+    <li>Subscriptions auto-renew monthly until canceled. Cancel any time at <a href="mailto:atw.linked+bridge@gmail.com">atw.linked+bridge@gmail.com</a>; cancellation takes effect at the end of the current billing period.</li>
+    <li>We do not offer refunds for partial months. If you believe you've been charged in error, email us and we will make it right.</li>
+    <li>If your payment fails, we will pause messaging after 7 days and cancel the account after 30.</li>
+  </ul>
+
+  <h2>5. Acceptable use</h2>
+
+  <p>You agree not to:</p>
+  <ul>
+    <li>Enroll a Recipient who has not given verbal consent to receive daily SMS from Bridge.</li>
+    <li>Use Bridge to harass, surveil, or coerce any person.</li>
+    <li>Attempt to extract Bridge's underlying prompts or model behavior, or use Bridge as a general-purpose chatbot.</li>
+    <li>Use Bridge to send commercial, political, or solicitation content.</li>
+    <li>Reverse engineer, scrape, or interfere with the service.</li>
+  </ul>
+
+  <p>We may suspend or terminate any account that violates these rules without refund.</p>
+
+  <h2>6. Safety alerts and limitations</h2>
+
+  <p>Bridge attempts to detect signs of medical distress (chest pain, falls, confusion), scam attempts, and significant mood changes, and will alert the Sponsor when it does. <strong>Detection is best-effort and not guaranteed.</strong> Bridge may miss real concerns or flag false ones. You agree not to rely on Bridge as a primary safety net.</p>
+
+  <p>If Bridge detects a phrase suggesting immediate danger, it will instruct the Recipient to call 911 and notify the Sponsor as quickly as possible. It will not call 911 on the Recipient's behalf.</p>
+
+  <h2>7. Third-party services</h2>
+
+  <p>Bridge depends on Twilio (SMS delivery), OpenRouter / Moonshot AI (Kimi K2.6 language model), Stripe (payments), and Anthropic (digest generation in some configurations). Outages or policy changes by these vendors may temporarily degrade or suspend the service. We are not liable for vendor outages.</p>
+
+  <h2>8. AI-generated content</h2>
+
+  <p>Replies sent to the Recipient are generated by a large language model. They may occasionally be inaccurate, awkward, or unexpected. We do our best to keep replies safe, kind, and on-topic, but we cannot guarantee every individual message.</p>
+
+  <p>You agree that AI-generated messages are not statements of fact by Sus.AI LLC, and that the Recipient and Sponsor will use their own judgment when interpreting them.</p>
+
+  <h2>9. Disclaimers</h2>
+
+  <p>Bridge is provided <strong>"as is" and "as available"</strong>, without warranties of any kind, express or implied, including merchantability, fitness for a particular purpose, or non-infringement. We do not warrant that the service will be uninterrupted, error-free, or secure against unauthorized access.</p>
+
+  <h2>10. Limitation of liability</h2>
+
+  <p>To the maximum extent permitted by law, Sus.AI LLC's total liability to you for any claim arising out of or relating to Bridge is limited to <strong>the amount you paid us in the 12 months preceding the claim</strong>. We are not liable for indirect, consequential, incidental, or punitive damages, including loss of life, health outcomes, or family relationships, even if we have been advised of the possibility.</p>
+
+  <p>Some jurisdictions do not allow these limitations; in those jurisdictions, our liability is limited to the minimum permitted by law.</p>
+
+  <h2>11. Indemnification</h2>
+
+  <p>You agree to indemnify and hold harmless Sus.AI LLC, its members, and its vendors from any claim arising out of (a) your enrollment of a Recipient without proper consent, (b) your violation of these Terms, or (c) your misuse of the service.</p>
+
+  <h2>12. Termination</h2>
+
+  <ul>
+    <li>You may cancel at any time by emailing <a href="mailto:atw.linked+bridge@gmail.com">atw.linked+bridge@gmail.com</a> or replying <code>STOP</code> from the Recipient's number.</li>
+    <li>We may terminate or suspend service at our discretion for violation of these Terms, non-payment, abuse, carrier compliance issues, or business reasons. We will give reasonable notice when we can.</li>
+    <li>Upon termination, message delivery stops immediately. Data is retained per the 90-day rolling window in our <a href="/bridge/privacy">Privacy Policy</a>, or deleted on request.</li>
+  </ul>
+
+  <h2>13. Changes to these Terms</h2>
+
+  <p>If we materially change these Terms, we will email all active Sponsors and update the "Effective" date above. Continued use after a change constitutes acceptance.</p>
+
+  <h2>14. Governing law and disputes</h2>
+
+  <ul>
+    <li>These Terms are governed by the laws of the State of Georgia, USA, without regard to conflict-of-laws principles.</li>
+    <li>Any dispute will be resolved in the state or federal courts located in Fulton County, Georgia, and you consent to that jurisdiction.</li>
+    <li>You agree to waive any right to a jury trial or class action with respect to disputes arising under these Terms, to the extent permitted by law.</li>
+  </ul>
+
+  <h2>15. Miscellaneous</h2>
+
+  <ul>
+    <li>If any part of these Terms is held unenforceable, the remainder stays in effect.</li>
+    <li>Our failure to enforce a provision is not a waiver of it.</li>
+    <li>You may not assign these Terms; we may assign them in connection with a sale or merger.</li>
+    <li>These Terms, together with the <a href="/bridge/privacy">Privacy Policy</a>, are the entire agreement between you and Sus.AI LLC regarding Bridge.</li>
+  </ul>
+
+  <h2>16. Contact</h2>
+
+  <p>
+    Sus.AI LLC<br>
+    420 Abbeywood Drive<br>
+    Roswell, GA 30075<br>
+    <a href="mailto:atw.linked+bridge@gmail.com">atw.linked+bridge@gmail.com</a>
+  </p>
+
+  <div class="footer">
+    <p><a href="/bridge/privacy">Privacy Policy</a> · <a href="/">divergencerouter.com</a></p>
+  </div>
+</main>
+</body>
+</html>
